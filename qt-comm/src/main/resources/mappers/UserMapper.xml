@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxb.qt.exploit.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zxb.qt.exploit.entity.User">
+        <id column="ID" property="id" />
+        <result column="THRID_USER_ID" property="thridUserId" />
+        <result column="USER_NAME" property="userName" />
+        <result column="passWord" property="passWord" />
+        <result column="NICK_TIME" property="nickTime" />
+        <result column="PLATFO" property="platfo" />
+        <result column="OPEN_ID" property="openId" />
+        <result column="HEAD_URL" property="headUrl" />
+        <result column="EMAIL" property="email" />
+        <result column="ACCOUN_TLOCK" property="accounTlock" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+</mapper>

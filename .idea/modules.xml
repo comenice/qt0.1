@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/qt-comm/qt-comm.iml" filepath="$PROJECT_DIR$/qt-comm/qt-comm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qt-manager/qt-manager.iml" filepath="$PROJECT_DIR$/qt-manager/qt-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/qt0.1.iml" filepath="$PROJECT_DIR$/.idea/qt0.1.iml" />
+    </modules>
+  </component>
+</project>

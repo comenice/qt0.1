@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxb.qt.exploit.mapper.SysRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zxb.qt.exploit.entity.SysRole">
+        <id column="ID" property="id" />
+        <result column="ROLE" property="role" />
+        <result column="DESCS" property="DESCS" />
+        <result column="AVAILABLE" property="available" />
+    </resultMap>
+
+    <resultMap id="UserRoleMap" type="com.zxb.qt.exploit.entity.vo.UserRoleVO">
+        <id column="ID" property="user_id"></id>
+        <result column="user_name" property="userName"></result>
+        <collection property="sysRoles" ofType="com.zxb.qt.exploit.entity.SysRole">
+            <id column="ID" property="id"></id>
+            <result column="ROLE" property="role"></result>
+            <result column="DESCS" property="descs"></result>
+            <result column="AVAILABLE" property="available"></result>
+        </collection>
+    </resultMap>
+
+    <select id="queryUserRole" resultMap="UserRoleMap">
+        SELECT
+        u.ID as user_id ,
+        sr.ID as id , sr.DESCS , sr.AVAILABLE , sr.ROLE
+         USER_NAME FROM user u
+         LEFT JOIN sys_role_user sru on u.id = sru.user_id
+         LEFT JOIN sys_role sr on sru.role_id = sr.ID
+         where u.id = #{uid}
+    </select>
+    
+</mapper>

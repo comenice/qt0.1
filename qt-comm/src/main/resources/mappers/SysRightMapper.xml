@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxb.qt.exploit.mapper.SysRightMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zxb.qt.exploit.entity.SysRight">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="RESOURCETYPE" property="resourcetype" />
+        <result column="URL" property="url" />
+        <result column="DESCS" property="descs" />
+        <result column="PARENTID" property="parentid" />
+        <result column="PARENTIDS" property="parentids" />
+        <result column="ACAIABLE" property="acaiable" />
+    </resultMap>
+
+
+    <resultMap id="RoleRightMap" type="com.zxb.qt.exploit.entity.vo.RoleRightVO">
+        <id column="id" property="roleId"/>
+        <result column="ROLE" property="roleName"></result>
+        <collection property="sysRights" ofType="com.zxb.qt.exploit.entity.SysRight">
+            <id column="id" property="id"/>
+            <result column="NAME" property="name"></result>
+            <result column="RESOURCETYPE" property="resourcetype"></result>
+            <result column="URL" property="url" ></result>
+            <result column="DESCS" property="descs" ></result>
+            <result column="PARENTID" property="parentid" ></result>
+            <result column="PARENTIDS" property="parentids" ></result>
+            <result column="ACAIABLE" property="acaiable" ></result>
+        </collection>
+    </resultMap>
+
+
+
+    <select id="queryRoleRight" resultMap="RoleRightMap">
+          select
+            r.ACAIABLE,r.DESCS,r.id,r.`NAME`,r.PARENTID,r.PARENTIDS,r.RESOURCETYPE,r.URL
+            from sys_right r
+            LEFT JOIN sys_role_right srr on srr.right_id = r.id
+            LEFT JOIN sys_role sr on sr.ID = srr.role_id
+            WHERE sr.ID = #{rid}
+    </select>
+
+</mapper>

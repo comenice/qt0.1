@@ -1,0 +1,30 @@
+## 非spring boot自动创建数据源  手动创建数据源 下面为 数据
+#spring:
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driverClassName: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
+#    platform: mysql
+#    url: jdbc:mysql://139.224.129.134:3306/sys?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+#    username: itoffice
+#    password: Root2019!!!
+#    initialSize: 5
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT1FROMDUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    filters: stat,wall,slf4j
+#    logSlowSql: true
+
+
+
+  #typeAliasesPackage: cn.kiwipeach.blog.domain
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*Mapper.xml
+plconfiguration:
+                log-impl: org.apache.ibatis.logging.stdout.StdOutIm
