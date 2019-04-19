@@ -1,533 +1,83 @@
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
-  <head>
-    	<meta charset="utf-8" />
-	  <link th:href="@{/css/normalize.css}" rel="stylesheet" type="text/css" />
-	  <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
-	  <link th:href="@{/js/font-awse.css}" rel="stylesheet" type="text/css" />
-	  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
-	  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
-	  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
-	  <link th:href="@{/js/bootstrap.css}" rel="stylesheet" type="text/css" />
-	  <link th:href="@{/js/bootstrap-grid.css}" rel="stylesheet" type="text/css" />
-	  <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
-	  <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<!DOCTYPE html>
 
-	  </head>
-		<style>
-		body{
-			margin: 0;
-			overflow-x: hidden;
-		}
-		a{
-			text-decoration: none;
-		}
-			#top{
-					width: auto;
-			}
-			div{
-					white-space: nowrap;
-			}
-			#top #top_1{
-					margin: 0 auto;
-					width: auto;
-					font-size: 40px;
-					font-family: "黑体";
-					color: white;
-					font-weight: bold;
-					white-space: nowrap;
-			}
-			#top div #right_log{
-					text-align: right;
-					padding-right: 170px;
-					font-size: 20px;
-					line-height: 50px;
-					white-space: nowrap;
-			}
-			#top div #right_log span{
-					font-size: 14px;
-					margin-left: 20px;
-					font-weight: normal;
-			}
-			#top div #right_log span:hover{
-					font-weight: bold;
-			}
-			#top_2 div{
-				  padding-top: 20px;
-					height: 80px;
-					text-align: center;
-					font-family: "黑体";
-					color: white;
-					font-weight: bold;
-			}
-			#top_3 div{
-					padding-top: 15px;
-					text-align: center;
-					font-family: "黑体";
-					color: white;
-			}
-			#top_4 div{
-					padding-top: 30px;
-					font-size: 19px;
-					text-align: center;
-					font-family: "黑体";
-					color: white;
-					font-weight: bold;
-		}
-			#top_5 div{
-				text-align:center;
-				padding-right: 320px;
-			}
-			#middle{
-					width: auto;
-			}
-		/* 搜索框
-		 */
-				* {
-            box-sizing: border-box;
-        }
-				#sear{
-					width: 800px;
-					height: 60px;
-					text-align: center;
-					font-size: 20px;
-				}
-				#sear_tb{
-					position: absolute;
-					right: 360px;
-					top: 28px;
-				}
+<html lang="en" class="no-js"
+      xmlns:th="http://www.thymeleaf.org">
 
-        #container {
-            width: 500px;
-            height: 820px;
-            margin: 0 auto;
-        }
-        div.search {padding: 30px 0;}
-        .bar1 input {
-            border: 2px solid #7BA7AB;
-            border-radius: 5px;
-            background: #F9F0DA;
-            color: #9E9C9C;
-        }
-        .bar1 button {
-            top: 0;
-            right: 0;
-            background: #F8F8F8;
-            border-radius: 0 5px 5px 0;
-        }
-        .bar1 button:before {
-            content: "\f002";
-            font-family: FontAwesome;
-            font-size: 16px;
-            color: #F9F0DA;
-        }
-        #searchbutton{
-        		background: #67B168;
-        }
-        #searchbutton:hover{
-        		background:#5CB85C;
-        }
-		/**
-		 * 查看全部
-		 */       
-		td{
-			height: 60px;
-			text-align: center;
-		}
-		td span{
-			line-height: 60px;
-			/*
-				灰色
-			 */
-			color: #777;
-		}
-		th{
-			text-align: center;
-			font-size: 20px;
-		}
-		  #ckall  span{
-		 	color: red;
-			text-align: center;
-			color: 27ae60;
-			font-weight: bold;
-		 }	
-		 
-		 /*	尾部  */	
-		 #footers {
-		 	width: auto;
-		 	height: auto;
-		 	background-color: 27ae60;
-		 	color: white;
-		 }
-		 #footers div{
-		 	padding-top: 3%;
-		 	height: auto;
-		 	float: left;
-		 	white-space: normal;
-		 }
-		  #footers div h4,p{
-			text-align: center;
-		 }
-		 #footers div p{
-		 	white-space: inherit;
-		 	line-height: 10px;
-		 }
-		 #footers a{
-		 	color: wheat;
-		 }
-		 #up{
-				/**	把它至于最上层 免div重叠时 被覆盖了	 */		 	
-		 		z-index: 999;
-		 		background: rgba(39,174,96,.6);
-		 		opacity: 1;
-				border: 0;		 	
-		 		position: fixed;
-				bottom: 10px;
-		 		right: 10px;
-		 		width: 56px;
-		 		height: 50px;
-		 		text-align: center;
-		 }
-		#up:hover{
-			background:mediumseagreen;
-			cursor: pointer;
-		}
-		 #up span{
-		 			color: white;
-		 			line-height: 50px;
-		 }
-		/** 显示	 */
-		 .hi1{
-		 			display: block;
-		 }
-		 .hi2{
-		 		 		transition: opacity .5s;
-		 }
-	</style>
-	
-	<script>
-		/*
-		 * 因为 尾部的高度是auto 随着内容而变的 为了让它更好看 加了100高度
-		 */
-		$(function(){
-//			$("body").one("click",function(){
-//				window.open("www.baidu.com");
-//			})
-			$("#up").css("display","none");
-			var height  = $("#footers").css("height");
-			height = parseInt( height );
-			height += 50 ;
-			height += "px";
-			$("#footers").css("height",height);
-		
-			// 内容 滚动条改变
-			$(document).scroll( function(){
-				//得到滚动条距离顶部
-            var top=$(document).scrollTop();
-        //得到你想从那个div高度 开始显示向上按钮 
-            var top_2 =  $("#top_2").offset().top;
-					//	var rect =	document.getElementById("up").getBoundingClientRect();
-		    	//	var tp = document.documentElement.clientTop;
-					// 显示
-            if ( top>=top_2 ){
-            		$("#up").css("display","block");
-								$("#up").removeClass("hi2");
-								$("#up").addClass("hi1");
-								$("#up").css("opacity","1");
-            }else{
-            // 淡化隐藏
-            		$("#up").css("opacity","0.1");
-								$("#up").removeClass("hi1");	
-						// 谈化的速度
-								$("#up").addClass("hi2");
-            }
-			});
-			
-			// 点击 滑动到顶部 以200的速度的滑动
-			$("#up").click(function(){
-						$("body,html").animate( {scrollTop:0},200 );
-						return false;
-			});
-			$("#dl").click(function(){
-						$("#md").modal({
-							  backdrop:false,
-						});
-			});
-		})
-//		window.onresize = function(){
-//			$("#footers").css("marginBottom","0");
-//		}
-				
-	</script>
-	</head>
-	<body>
-	<div id="up" class="collapse navbar-collapse" ><a href="#"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
+<head>
+	<meta name="generator" content="Hugo 0.55.1" />
+  <title>
+           - Site Title
+  </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="map[]" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://themes.gohugo.io//theme/pulp/img/favicon.ico">
 
-		<style>
-				#nav{
-					padding-top: 15px;
-					background-color: #27AE60;
-				}
-				#nav div[class=navbar-header]{
-						color: white;
-						font-size: 30px;
-						padding-left: 140px;
-			  }
-						@media (max-width: 767px) {
-						  	#nav div[class=navbar-header]{
-						  				margin-right: 100px;
-						  	}
-						}
-				}
-				#menu  a:hover{
-						font-weight: bold;
-				}
+  <link rel="stylesheet" th:href="@{common/css/hugo/style.min.css}" href="../static/common/css/hugo/style.min.css">
+  <link rel="stylesheet" th:href="@{common/css/hugo/all.css} "      href="../static/common/css/hugo/all.css">
+  <link rel="stylesheet" th:href="@{common/css/mycss.css}"          href="../static/common/css/mycss.css">
 
-				#nav #nav_right{
-						padding-right: 50px;
-				}
-				#nav #nav_right li:hover{
-						cursor: pointer;
-						font-weight: bold;
-				}
+<meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://themes.gohugo.io//theme/pulp/" />
+<meta property="og:updated_time" content="2019-03-11T00:00:00&#43;00:00"/>
 
+<meta itemprop="name" content="">
+<meta itemprop="description" content="">
 
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content=""/>
 
+  <!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
 
+  <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <![endif]-->
 
-				#top-1{
-			background-color: red;
-			margin-top: 100px;
-			width: auto;
-			height:390px;
-			background-color: white;
-		}
-		#top_dl{
-			background-color: #27ae60;
-			color: white;
-			text-align: center;
-			width: 500px;
-			padding-top: 20px;
-		}
-		#top_hr{
-			margin: 0;
-			text-align: center;
-		}
-		#top_hr [id=hrleft]{
-			width: 110px;
-			height:2px;
-			float:left;
-			background-color: green;
-			margin-left: 130px;
-		}
-		#top_hr [id=hrright]{
-			width: 110px;
-			height:2px;
-			float:left;
-		}
-		#top-1 div{
-			background-color: #27ae60;
-		}
-		#top-1 #login{
-			line-height: 20px;
-			width: auto;
-		}
-		#top-1 #log_form{
-			margin-top: 30px;
-			line-height: 25px;
-		}
-		#top-1 #toggle{
-			color: white;
-		}
-		#top-1 #toggle [id=ptdl]{
-				padding-right: 25px;
-				width: 100px;
-				font-size: 15px;
-		}
-		#top-1 #toggle [id=yxdl]{
-				padding-left: 25px;
-				width: 100px;
-				margin-left: 45px;
-		}
-		#top-1 #toggle div:hover{
-			background-color: green;
-		}
-		#top-1 #yzm{
-			 color: #F0AD4E;
-			 position: absolute;
-			 right: 130px;
-			 bottom: 54px;
-			 text-align: center;
-		}
-		#top-1 #foot{
-			margin-top: 42px;
-		}
-	#top-1 	#foot a{
-			color:  white;
-		}
-	#top-1	#yj{
-			position: absolute;
-			left: 280px;
-			top: 85px;
-			color: #000000;
-			border: 0;
-			color: #27AE60;
-		}
-		#yj:hover{
-			cursor: pointer;
-		}
+  </head>
+<body>
+    <div id="profileContainer">
+      <div id="profile">
+        <header>
+          
+          <div class="avatar">
+            <img class="avatarMask" src="https://themes.gohugo.io//theme/pulp/img/avatar.jpg" alt="avatar">
+            <img src="https://themes.gohugo.io//theme/pulp/img/avatar-border.svg" alt="avatar-border">
+          </div>
+          
+          <h1 class="author">晴天</h1>
+        </header>
+        
+        <p>
+          不必太纠结于当下，也不必太忧虑未来，当你经历过一些事情的时候，眼前的风景已经和从前不一样了。
+        </p>
+        
+        <nav>
+          <ul class="icon">
+         
+            <li style="margin-left:40px;"><a href="https://themes.gohugo.io//theme/pulp/blog/" aria-label="Blog"> <img src="http://139.224.129.134:8090/file/img/icon/third/qq.svg"></a></li>
 
+            <li style="margin-left:40px;"><a href="https://twitter.com/username" aria-label="Twitter">            <img src="http://139.224.129.134:8090/file/img/icon/third/github.svg"></a></a></li>
 
-		</style>
+            <li style="margin-left:40px;"><a href="https://github.com/username" aria-label="GitHub">              <img src="http://139.224.129.134:8090/file/img/icon/third/wx.svg"></a></a></li>
 
-
-
-
-<div class="modal fade" id="md" date-backdrop="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
+            <li style="margin-left:40px;"><a href="mailto:username@example.com" aria-label="Email">               <img src="http://139.224.129.134:8090/file/img/icon/third/email.svg"></a></a></li>
+            
+          </ul>
+        </nav>
       </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-		<div id="nav" class="nav navbar-default" >
-				<div class="navbar-header">
-						<span  th:text="${home.homeTitle}">DSN</span>
-						<button type="button" style="background-color: #27AE60;" class="navbar-toggle collapsed"
-							data-toggle="collapse" data-target="#menu">
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-      			</button>
-				</div>
-
-				<div class="collapse navbar-collapse" id="menu">
-					<ul th:if="${session.userSession == null}" id="nav_right" class="nav navbar-nav navbar-right">
-							 		<li><a style="color: white;" >登陆</a></li>
-									<li><a style="color: white;" >注册</a></li>
-							 		<li><a style="color: white;" id="dl" href="#" >功能</a></li>
-					</ul>
-					<ul th:if="${session.userSession != null}" id="nav_right" class="nav navbar-nav navbar-right">
-						<li><a style="color: white;">写博客</a></li>
-						<li><a style="color: white;" th:text="${session.userSession.uname}"></a>晴天</li>
-						<li><a style="color: white;" >帮助</a></li>
-					</ul>
-				</div>
-				
-				
-		</div>
-		<!-- top 2 -->
-<div style="background-color: 27ae60;">
-				<div class="row" id="top_2" style="padding-top: 1px;">
-						<div class="col-lg-12">
-								<span><h1 style="font-size: 60px;text-align: center;">HOME</h1></span>
-						</div>
-				</div>
-					<!--<div class="row" id="top_3" >-->
-						<!--<div class="col-lg-12">-->
-								<!--<span><h1 style="font-size: 40; font-weight: normal;">zhengxiaobo jiayou</h1></span>-->
-						<!--</div>-->
-					<!--</div>-->
-				<div class="row" id="top_4">
-						<div class="col-lg-12">
-								<span>mode : 10</span>
-						</div>
-				</div>
-				<div class="row" id="top_5" style="padding-bottom: 30px;">
-					<div class="col-xs-12 search d1" >
-	  				<form>
-	 						 <input type="text" autocomplete="off" placeholder="搜索从这里开s始..." >
-	 						 <button type="submit" id="searchbutton"></button>
-	 				 </form>
-					</div>
-					</div>
-  		  </div>
-			</div>
-</div>
-			<!- 中间灰色部分 -->
-			<div id="tops" style="text-align: center; background-color: #E6E6E6; widow: auto;height: 40px;">
-						<span class="text-success" style="text-align: center;line-height: 40px;">励志每一天 GO Go Go !</span>
-			</div>
-			<div style="width: auto; height: 40px;" class="text-right" >
-				<span style="color: #777;line-height: 50px;margin-right: 10px;">学习参考</span>
-				<span style="color: #777;line-height: 50px;margin-right: 10px;">哈哈哈哈</span>
-			</div>
-			<!--
-				屏幕中间表格 当屏幕小于750 进行响应式布局 添加滚动条
-            -->
-			<div class="container table-responsive" id="middle">
-						<table   class="table  tab-content table-hover ">
-								<thead>
-										<th>标题</th>
-										<th>介绍</th>	
-										<th>作者</th>
-								</thead>
-								<tbody>
-										<tr>
-											<td><span>Oracle 管理</span></td>
-											<td><span>这是一款Oracle 简易管理系统</span></td>
-											<td><span>miss zheng</span></td>
-										</tr>
-										<tr>
-											<td><span>计算器</span> </td>
-											<td><span>这是一款 计数器</span></td>
-											<td><span>miss zheng</span></td>
-										</tr>
-										<tr>
-											<td><span>计算器</span> </td>
-											<td><span>这是一款 计数器</span></td>
-											<td><span>miss zheng</span></td>
-										</tr>
-										<tr>
-											<td><span>计算器</span> </td>
-											<td><span>这是一款 计数器</span></td>
-											<td><span>miss zheng</span></td>
-										</tr>
-										<tr >
-											<td  id="ckall" style="text-align: center;" colspan="3"> <span>查看全部内容</span></td>
-										</tr>
-								</tbody>
-						</table>
-			</div>
-			
-			<br />
-			<br />
-			
-			<div id="footers" class="row">
-				<div id="f1" class="col-xs-4">
-					<h4>关于本网页</h4>
-					<p> 浏览bootstrap的时候 看见了该网页很好看就用自己所学的技术写了 </p>
-				</div>
-				<div id="f2" class="col-xs-2">
-					<h4>友情链接</h4>
-					<p><a>百度</a> &nbsp;&nbsp; <a>boostop</a></p>
-					<p><a>百度</a> &nbsp;&nbsp; <a>boostop</a></p>
-					<p><a>百度</a> &nbsp;&nbsp; <a>boostop</a></p>
-					<p><a>百度</a> &nbsp;&nbsp; <a>boostop</a></p>
-				</div>
-				<div id="f3" class="col-xs-3">
-					<h4>我所用到的技术</h4>
-					<p><a>html5</a> &nbsp;&nbsp; <a>boostop</a></p>
-					<p><a>css3</a> &nbsp;&nbsp; <a>jquery</a></p>
-				</div>
-				<div id="f4" class="col-xs-3">
-					<h4> 特别感谢 </h4>
-					<p> <a href="http://www.bootcss.com/">boostop</a> &nbsp;&nbsp; <a></a> </p>
-				</div>
-			</div>
-	</body>
+    </div><footer>
+  <p>
+  &copy; 2019 Happy Happy.
+  Contact Me <a href="/">(｡･∀･) - 嗨</a>
+  using the <a href="https://gohugo.io">pulp</a> theme.
+  </p>
+</footer>
+</body>
 </html>

@@ -1,8 +1,10 @@
-#spring:
-#  thymeleaf:
-#    cache: false
-#    encoding: utf-8
-#    mode: HTML5
+spring:
+   thymeleaf:
+     cache: false
+     encoding: utf-8
+     mode: HTML5
+     suffix: .html
+     prefix: classpath:/templates/
 
 plconfiguration:
   log-impl: org.apache.ibatis.logging.stdout.StdOutIm

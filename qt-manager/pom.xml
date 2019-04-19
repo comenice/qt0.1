@@ -11,6 +11,11 @@
     <artifactId>qt-manager</artifactId>
     <packaging>jar</packaging>
     <dependencies>
+        <!-- 模板依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.zxb</groupId>
             <artifactId>qt-comm</artifactId>
@@ -18,6 +23,12 @@
         </dependency>
     </dependencies>
 
+
+    <build>
+
+
+
+    </build>
 
 
 </project>

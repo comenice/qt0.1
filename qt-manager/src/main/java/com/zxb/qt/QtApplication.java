@@ -10,10 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //@ServletComponentScan( value = "com.zxb.qt.exploit.common" )
-@MapperScan(  "com.zxb.qt.exploit"  )
-
-
-@ComponentScan("com.zxb.qt.exploit")
+@MapperScan(  "com.zxb.qt"  )
 public class QtApplication {
 
     public static void main(String[] args) {
