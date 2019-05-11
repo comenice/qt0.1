@@ -15,15 +15,21 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,6 +49,25 @@ public class UserController {
 
     @Autowired
     private MailService mailService;
+
+
+    //该请求路径一般是由shrio拦截后 请求到这里
+    @RequestMapping("")
+    @ResponseBody
+    public AjaxResponse index(Map map  , HttpServletRequest req , HttpServletResponse response){
+        // 由于前台会使用异步方式 所有使用模板引擎并不适合 我将返回json在由前台来决定 !
+        //但单返回json那也不适合 哈哈哈哈
+        // return "/login" ;
+        map.put( "html" , "user/html" );
+        map.put( "url" , req.getRequestURL() ) ;
+        return new AjaxResponse( "1" , "该模块需要登陆才能使用" , map );
+    }
+
+    //登陆界面 登陆页面不单独出现 配合layer弹层出现
+    @RequestMapping("/html")
+    public String indexHtml(){
+        return "/login" ;
+    }
 
     @ResponseBody
     @RequestMapping("/findUserList")

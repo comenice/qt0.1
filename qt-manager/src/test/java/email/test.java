@@ -20,25 +20,40 @@ import javax.mail.internet.MimeMultipart;
 @SpringBootTest( classes = QtApplication.class)
 public class test {
 
+//
+//    private String to =  "571503431@qq.com";
+//    private String subJet = "Test";
+//    private String context  = "spring bott jicheng email Test";
+//
+//    @Autowired
+//    private MailService email;
+//
+//
+//    public void TestMsg (){
+//
+//
+//
+//
+//    }
+//    @Test
+//    public void TestHtml(){
+//        Multipart mainPart = new MimeMultipart();
+//        email.sendHtmlMail( to , subJet , MailServiceUtils.content);
+//    }
 
-    private String to =  "571503431@qq.com";
-    private String subJet = "Test";
-    private String context  = "spring bott jicheng email Test";
+    public static void main(String[] args) {
 
-    @Autowired
-    private MailService email;
+        int a = 20;
+        int b =0 ;
+        boolean h = true ;
+        String str = "";
+        if ( a == 20 && !h   ){
 
+        }
 
-    public void TestMsg (){
-
-
-
-
+        System.out.println( h );
     }
-    @Test
-    public void TestHtml(){
-        Multipart mainPart = new MimeMultipart();
-        email.sendHtmlMail( to , subJet , MailServiceUtils.content);
-    }
+
+
 
 }

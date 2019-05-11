@@ -16,4 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sysRight")
 public class SysRightController {
 
+
+
 }

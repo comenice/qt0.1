@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>写博客</title>
+</head>
+
+    <link href="./common/bootstrap/css/bootstrap.css">
+
+    <link rel="stylesheet" href="./common/editor.md-master/css/editormd.css" />
+    <link rel="stylesheet" href="./common/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./common/flat_ui/app/css/flat-ui.css">
+
+
+    <style>
+
+        #blog_form .form-inline{
+            margin: 10px 0px 7px 10px;
+            padding-left: 78px;
+        }
+        #blog_form .form-inline input{
+            width: 1100px;
+        }
+        #blog_form .form-inline button{
+            margin-left: 20px;
+            width: 80px;
+            height: 50px;
+        }
+        #fabu{
+            padding: 10px 0px 10px 20px;
+            z-index: 99999;
+        }
+        #fabu .form-group label {
+            color: #000;
+        }
+
+
+        body .layer-ext-myskin .layui-layer-content {
+            overflow: visible;
+        }
+
+    </style>
+
+
+<body>
+
+    <form id="blog_form" name="blog_form">
+        <div class="form-inline">
+            <input name="title" type = "text" class = "form-control input-hg " placeholder = "请输入标题" />
+            <button id="blog_submit" type="button" class = "btn btn-reduce-on-xs btn-social-googleplus" >
+                 提交
+            </button>
+        </div>
+        <div id="layout" class="editor">
+            <div id="my-editormd">
+                <textarea name="content_edit" class="editormd-markdown-textarea"></textarea>
+                <textarea  name="content_show" class="editormd-html-textarea" id="editorhtml"></textarea>
+            </div>
+        </div>
+    </form>
+
+    <form id="fabu" class="hide" style="display: none" >
+        <div class="form-group">
+            <label class="col-sm-2 control-label">文章标签:</label>
+            <!-- Primary tags input -->
+            <div class="col-sm-10">
+                <select name="tag" id="tag_select" multiple="multiple" class="form-control multiselect multiselect-default">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 文章分类</label>
+            <div class="col-sm-10">
+                <select name="typeId"  id="type_select" class="select select-primary select-block mbl">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">文章权限</label>
+            <div class="col-sm-10 form-inline">
+                <label class="radio" for="checkbox1">
+                    私密
+                    <input type="radio" value="0" id="checkbox1" name="isOpen"  data-toggle="radio">
+                </label>
+                <label class="radio" for="checkbox2">
+                    公开
+                    <input type="radio" value="1" id="checkbox2" name="isOpen"  data-toggle="radio">
+                </label>
+            </div>
+        </div>
+    </form>
+
+    <script src="./common/js/jquery-3.2.1.js"></script>
+    <script src="./common/bootstrap/js/bootstrap.js"></script>
+    <!-- 富文本 -->
+    <script src="./common/editor.md-master/editormd.min.js"></script>
+    <!--  富文本初始化 工具栏.. -->
+    <script src="./custom/js/editor/index.js"></script>
+    <!-- ui插件 -->
+    <script src="./common/flat_ui/app/scripts/flat-ui.js"></script>
+    <!-- layer 弹层 -->
+    <script src="../common/layui/lay/modules/layer.js"></script>
+
+    <script>
+        $(function () {
+            $("#fabu").modal("hide");
+            openMdeditor( "my-editormd",null );
+
+            $("#blog_submit").click(function () {
+                $(".tagsinput").tagsinput();
+                $(':radio').radiocheck();
+                $("select").select2({dropdownCssClass: 'dropdown-inverse'});
+                layer.open({
+                    type: 1, // 样式
+                    closeBtn: false,
+                    shift: 2, // 弹出特效
+                    skin: 'titleStyle',
+                    area: ['700px', '500px'], //宽高
+                    shadeClose: true,
+                    title:['发布文章'],
+                    content: $('#fabu'),
+                    zIndex:213,
+                    btn:['提交','取消'],
+                    success: function(layero, index){
+                       var data = loadBlogTagType();
+                       var tag = data.blogTagList;
+                       var type = data.blogTypeList;
+                       addTagSelect( "#tag_select" , tag );
+                       addTypeSelect( "#type_select" , type );
+                    },
+                    yes :function ( index ){ //按钮1  提交的回调事件
+                        $(function(){
+                            var data = $("form").not( $("#tag_select") ).serialize();
+                            data = decodeURIComponent(data,true);
+
+                            var tags  = $('#tag_select').find(':selected');
+                            var tagsValues = "";
+                            for ( i = 0 ; i<tags.length ; i++ ){
+                                tagsValues +=  $( tags[i] ).val() + "," ;
+                            }
+                            console.log( data );
+                            tagsValues = tagsValues.substring(0, tagsValues.length - 1) ;
+                            var pData = data +  "&tags=" + tagsValues ;
+
+                           // var converter = document.createElement("DIV");
+                           // converter.innerHTML = pData;
+                           // pData = converter.innerText;
+                          //  converter = null;
+                            pData = pData.replace(/&quot/gi,' ');
+                           // pData=b.replace(/[&\|\\\*^%$#@\-]/g," ");
+                            alert( pData );
+
+                            console.log( pData );
+                            $.ajax({
+                                url : "/blog/saveBlog" ,
+                                data: pData,
+                                type: "post",
+                                success : function ( res ) {
+                                    alert( res );
+                                }
+                            });
+
+                            layer.close(index);
+                        });
+                    },btn2 : function ( index ) {
+                        layer.close(index);
+                    }
+                });
+
+            });
+            // 获取 博客所有标签和类型
+            function loadBlogTagType(){
+                var data = "";
+                $.ajax({
+                    async : false,
+                    type: "get",
+                    url: "/blog/typeTagList",
+                    success : function ( msg ) {
+                        data = msg.data;
+                    }
+                });
+                return data;
+            };
+
+            function addTagSelect( obj , tag ){
+                var df = "  <option value=\"0\">选择标签 ( 可以多选哦 )</option>" ;
+                var tagOptions =  df ;
+                for (  i = 0 ; i<tag.length ; i++ ){
+                    tagOptions += "<option value='" + tag[i].id + "' > " + tag[i].name + " </option>"
+                }
+                $( obj ).html( tagOptions );
+            }
+            function addTypeSelect( obj ,type ) {
+                var df = " <option value=\"0\">选择类型</option>" ;
+                var typeOptions = df;
+                for (  i = 0 ; i<type.length ; i++ ){
+                    typeOptions += "<option value='" + type[i].id + "' > " + type[i].typeName + " </option>"
+                }
+                $( obj ).html( typeOptions );
+            }
+        });
+    </script>
+
+</body>
+
+
+
+
+</html>

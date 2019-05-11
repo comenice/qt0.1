@@ -16,7 +16,9 @@
 
   <link rel="stylesheet" th:href="@{common/css/hugo/style.min.css}" href="../static/common/css/hugo/style.min.css">
   <link rel="stylesheet" th:href="@{common/css/hugo/all.css} "      href="../static/common/css/hugo/all.css">
-  <link rel="stylesheet" th:href="@{common/css/mycss.css}"          href="../static/common/css/mycss.css">
+  <link rel="stylesheet" th:href="@{common/css/mycss.css}"          href="../static/common/css/blog-comment.css">
+
+
 
 <meta property="og:title" content="" />
 <meta property="og:description" content="" />
@@ -46,29 +48,29 @@
       <div id="profile">
         <header>
           
-          <div class="avatar">
-            <img class="avatarMask" src="https://themes.gohugo.io//theme/pulp/img/avatar.jpg" alt="avatar">
-            <img src="https://themes.gohugo.io//theme/pulp/img/avatar-border.svg" alt="avatar-border">
+          <div class="avatar" >
+            <form id="subform" action="./home.html?limit=1&size=1">
+               <a onclick="document.getElementById('subform').submit()">
+            </form>
+                <img class="avatarMask" src="https://themes.gohugo.io//theme/pulp/img/avatar.jpg" alt="avatar">
+                <img src="https://themes.gohugo.io//theme/pulp/img/avatar-border.svg" alt="avatar-border">
+              </a>
           </div>
           
-          <h1 class="author">晴天</h1>
+          <h1 class="author" th:text="${index.getIndexName()}">晴!天</h1>
         </header>
         
-        <p>
+        <p th:text="${index.getRhesis()}">
           不必太纠结于当下，也不必太忧虑未来，当你经历过一些事情的时候，眼前的风景已经和从前不一样了。
         </p>
         
         <nav>
-          <ul class="icon">
-         
-            <li style="margin-left:40px;"><a href="https://themes.gohugo.io//theme/pulp/blog/" aria-label="Blog"> <img src="http://139.224.129.134:8090/file/img/icon/third/qq.svg"></a></li>
-
-            <li style="margin-left:40px;"><a href="https://twitter.com/username" aria-label="Twitter">            <img src="http://139.224.129.134:8090/file/img/icon/third/github.svg"></a></a></li>
-
-            <li style="margin-left:40px;"><a href="https://github.com/username" aria-label="GitHub">              <img src="http://139.224.129.134:8090/file/img/icon/third/wx.svg"></a></a></li>
-
-            <li style="margin-left:40px;"><a href="mailto:username@example.com" aria-label="Email">               <img src="http://139.224.129.134:8090/file/img/icon/third/email.svg"></a></a></li>
-            
+          <ul class="icon" >
+            <th:block th:each="icons : ${index.getIconUrls()}">
+              <li style="margin-left:40px;"><a href="https://themes.gohugo.io//theme/pulp/blog/" aria-label="Blog"> <img th:src="${icons}" src="http://139.224.129.134:8090/file/img/icon/third/qq.svg"></a></li>
+              <!--<li style="margin-left:40px;"><a href="https://github.com/username" aria-label="GitHub">              <img src="http://139.224.129.134:8090/file/img/icon/third/wx.svg"></a></a></li>-->
+              <!--<li style="margin-left:40px;"><a href="mailto:username@example.com" aria-label="Email">               <img src="http://139.224.129.134:8090/file/img/icon/third/email.svg"></a></a></li>-->
+            </th:block>
           </ul>
         </nav>
       </div>

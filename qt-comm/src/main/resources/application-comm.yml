@@ -26,5 +26,5 @@
   #typeAliasesPackage: cn.kiwipeach.blog.domain
 mybatis-plus:
   mapper-locations: classpath*:/mappers/*Mapper.xml
-plconfiguration:
-                log-impl: org.apache.ibatis.logging.stdout.StdOutIm
+  plconfiguration:
+      log-impl: org.apache.ibatis.logging.stdout.StdOutIm

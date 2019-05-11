@@ -23,7 +23,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
         </dependency>
         <!-- email -->
         <dependency>
@@ -78,27 +78,60 @@
             <artifactId>shiro-spring</artifactId>
             <version>1.4.0</version>
         </dependency>
+
+        <!-- Redis nosql  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- solr 全局搜索 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-solr</artifactId>
+        </dependency>
+
+        <!-- rocketmq 消息中间件  org.apache(alibaba).rocketmq -->
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.zxb.qt.QtApplication</mainClass>
-                    <layout>ZIP</layout>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash; 指定该Main Class为全局的唯一入口 &ndash;&gt;-->
+                    <!--<mainClass>com.zxb.qt.QtApplication</mainClass>-->
+                    <!--<layout>ZIP</layout>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>repackage</goal>&lt;!&ndash;可以把依赖的包都打包到生成的Jar包中&ndash;&gt;-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
         <!--<resources>-->
             <!--<resource>-->
                 <!--<directory>src/main/resources</directory>-->

@@ -1,0 +1,23 @@
+/*
+	主页图标
+*/
+.icon img{
+	width:20px;
+	height:20px;
+}
+
+/*  返回图标  */
+.back{
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	z-index: 1000000000000000000000;
+}
+.back :hover{
+	opacity: 0.6;
+	cursor: pointer;
+}
+.back img{
+	width: 40px;
+	height: 40px;
+}
