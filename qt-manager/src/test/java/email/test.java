@@ -41,19 +41,6 @@ public class test {
 //        email.sendHtmlMail( to , subJet , MailServiceUtils.content);
 //    }
 
-    public static void main(String[] args) {
-
-        int a = 20;
-        int b =0 ;
-        boolean h = true ;
-        String str = "";
-        if ( a == 20 && !h   ){
-
-        }
-
-        System.out.println( h );
-    }
-
 
 
 }
