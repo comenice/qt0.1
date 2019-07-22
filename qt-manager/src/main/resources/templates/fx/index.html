@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分享</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding:0;
+	}
+		.share{
+			width: 1000px;
+			margin: auto;
+			margin-top: 30px;
+		}
+		.share .download{
+			display: inline-block;
+			background-color: red;
+			width: 200px;
+			height: 280px;
+			margin: 0 10px 30px;
+			padding: 10px;
+			text-align: center;
+			background-color: #fff;
+		}
+		.share .download .img{
+			width: 100px;
+			margin: auto;
+			height: 100px;
+			border-radius: 10px;
+			overflow: hidden;
+		}
+		.share .download .title{
+			text-align: left;
+			font-size: 24px;
+			margin: 30px 0 20px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.share .download .introduce{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			text-align: left;
+			color:#666;
+		}
+		.share .download button{
+			width: 120px;
+			border-radius: 20px;
+			border: 1px solid #d9534f;
+			background-color: #fff;
+			font-size: 18px;
+			color: red;
+			line-height: 40px;
+			margin-top: 25px;
+			transition: all .4s;
+			height: 40px;
+			outline:none;
+		}
+		.share .download button:hover{
+			background-color: #d9534f;
+			color: #fff;
+		}
+	</style>
+</head>
+<body bgcolor="#eaeaea">
+		<div class="share">
+
+			<div class="download">
+				<div class="img"><img src="https://spring.io/img/favicon-ca31b78daf0dd9a106bbf3c6d87d4ec7.png"></div>
+				<p class="title">spring boot官网</p>
+				<p class="introduce">在线spring boot文档</p>
+				<button  data-href="https://spring.io/projects/spring-boot#learn">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://image.uisdc.com/wp-content/uploads/2019/03/logo.png"></div>
+				<p class="title">设计师网站导航</p>
+				<p class="introduce">充满了全国各地 就是牛！</p>
+				<button  data-href="https://hao.uisdc.com/">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2574774309,856884605&fm=58&s=7A61F148D883984908165216030050DF&bpow=121&bpoh=75"></div>
+				<p class="title">json</p>
+				<p class="introduce">在线 json 格式化</p>
+				<button data-href="https://www.json.cn/">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://gtms04.alicdn.com/tps/i4/TB1_oz6GVXXXXaFXpXXJDFnIXXX-64-64.ico"></div>
+				<p class="title">外星人</p>
+				<p class="introduce">好多好用的图标</p>
+				<button data-href="https://www.iconfont.cn/">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://assets.getpostman.com/common-share/postman-logo-horizontal-white.svg"></div>
+				<p class="title">MAN</p>
+				<p class="introduce">测试工具 ！</p>
+				<button  data-href="https://www.getpostman.com/">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://www.baidu.com/img/baidu_jgylogo3.gif"></div>
+				<p class="title">脑图</p>
+				<p class="introduce">在线画图</p>
+				<button  data-href="http://naotu.baidu.com/">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="http://www.network-science.de/ascii/images/logo.gif"></div>
+				<p class="title">ascii</p>
+				<p class="introduce">ascii G</p>
+				<button  data-href="http://www.network-science.de/ascii/">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=3875610656,3183368369&fm=85&s=2DC5C30684A329B527821A690300F05B"></div>
+				<p class="title">网络监测工具</p>
+				<p class="introduce">在线网络监测工具，网站响应监测分析</p>
+				<button  data-href="https://ping.huatuo.qq.com/">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3481032919,3423878576&fm=26&gp=0.jpg"></div>
+				<p class="title">404</p>
+				<p class="introduce">小游戏！(排行功能待出)</p>
+				<button  data-href="this">查看</button>
+			</div>
+			<div class="download">
+				<div class="img"><img src="https://www.liaoxuefeng.com/files/attachments/1281823296454721/0"></div>
+				<p class="title">缪雪峰的官方网站</p>
+				<p class="introduce">别人的网站</p>
+				<button  data-href="https://www.liaoxuefeng.com/">查看</button>
+			</div>
+
+
+		</div>
+
+
+</body>
+
+	<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(function () {
+			$(".download button").click(function () {
+				var h = $(this).attr( "data-href" );
+				if( h == "this" ){
+					window.open( location.pathname+"我404 ?" , "_blank" );
+				}
+				window.open( h , "_blank" );
+				return false;
+			});
+		});
+
+	</script>
+
+</html>

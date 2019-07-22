@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<link rel="stylesheet" type="text/css" href="/common/loginRegister.css">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+
+<body style="background-color: gray;">
+	<div class="loginregister">
+		<div class="picture">
+			<input id="url_file"   onchange="document.getElementById('url').src=getFullPath(this);" name="url" type="file"  accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" width="100px" height="100" style="display: none">
+			<img id="url"  src="http://139.224.129.134/file/img/blog/wx.png">
+		</div>
+		<form method="post" enctype="multipart/form-data" id="register_fom">
+			<div class="user">
+				<i class="glyphicon glyphicon-user" style="color:#bfbdbd"></i>
+				<input style="color: #1d2124" name="userName" type="text" placeholder="请输入用户名">
+				<img  style="position: absolute;top: 108px;right: 16px" src="http://139.224.129.134/file/img/icon/default/false.svg">
+				</img>
+			</div>
+			<div class="user">
+				<i class="glyphicon glyphicon-lock" style="color:#bfbdbd"></i>
+				<input style="color: #1d2124" name="passWord" type="password" placeholder="请输入密码">
+				<img  style="position: absolute;top: 150px;right: 16px" src="http://139.224.129.134/file/img/icon/default/false.svg" >
+				</img>
+			</div>
+			<div class="user validation">
+				<input style="color: #1d2124" name="code" type="text" placeholder="请输入验证码">
+				<img id="yzmImg" src="http://139.224.129.134/file/img/icon/default/false.svg" style="position: absolute;right: 142px;top: 208px">
+				</img>
+				<div  class="check">
+					<img id="code" style="width: 110px;height: 40px;padding-left: -10px;">
+				</div>
+			</div>
+			<div class="option">
+				<div class="right">
+					<a id="goLogin" href="/user/html">已有账号？直接登录</a>
+				</div>
+			</div>
+			<button type="button" id="register" class="btn btn-success" style="background-color: #808080;border-color: #808080;width: 90%;margin-left: 5%;">注册</button>
+		</form>
+	</div>
+
+
+	<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/common/layui/lay/modules/layer.js"></script>
+	<script src="/common/common.js"></script>
+	<script type="text/javascript">
+
+		//切换头像
+		function getFullPath(obj) {
+			if (obj) {
+				if (obj.files) {
+					return window.URL.createObjectURL(obj.files.item(0));
+				}
+				return obj.value;
+			}
+		}
+		$(function(){
+
+			var timestamp = (new Date()).valueOf();
+			$("#code").attr("src","/user/sendImgCode?timestamp=" + timestamp);
+
+			var t ;
+			//点击头像图片 选择头像
+			$(document).on( "click","#url" , function () {
+				 $("#url_file").click();
+			});
+
+
+
+			$(document).keyup(function(event){
+				if(event.keyCode ==13){
+					$("#register").trigger("click");
+				}
+			});
+
+			//注册 提交
+			$("#register").click(function () {
+
+				var yzm = $("#yzmImg").attr( "src" );
+				var userNameImg = $("#register_fom input[name='userName']").next().attr( "src" );
+				var passWordImg = $("#register_fom input[name='passWord']").next().attr( "src" );
+
+				var index = yzm.lastIndexOf("/");
+				var indexUserName = userNameImg.lastIndexOf("/");
+				var indexPassWord = passWordImg.lastIndexOf("/");
+
+				var isUser = userNameImg.substring( indexUserName+1 , 6+indexUserName );
+				var isPassWord = passWordImg.substring( indexPassWord+1 , 6+indexPassWord );
+				var isYzm = yzm.substring( index+1 , 6+index );
+
+				//头像
+				var file = $("#url_file")[0].files[0] ;
+				if ( !file ){
+					layerTips( alertFlase( "提示！" , "请选择你的头像！" ) );
+					return false;
+				}
+
+				if ( isYzm == "false" || isUser == "false" || isPassWord == "false" ){
+					layerTips( alertFlase( "提示！" , "你还没用填写正确！！" ) );
+					return false;
+				}
+
+				var userName = $("#register_fom input[name='userName']").val();
+				var passWord = $("#register_fom input[name='passWord']").val();
+
+				var formData = new FormData();
+				// 获取文件对象 转成js对象 获取其中第一个文件
+				formData.append( "file" , file );
+				formData.append( "userName" , userName );
+				formData.append( "passWord" , passWord );
+				$.ajax({
+					url : "/user/registerUser",
+					type : "post" ,
+					processData : false, //不进行序列化参数
+					contentType: false,  //fasle 默认用表单的请求头
+					data : formData ,
+					success : function ( res ) {
+						layerTips( alertFlase( "提示！" , res.msg ) );
+						location.href = "/user/html" ;
+					},error : function ( res ) {
+						console.log("eres" + res );
+					}
+				});
+			});
+
+			//获取验证码
+			$("#code").click(function () {
+				var timestamp = (new Date()).valueOf();
+				$("#code").attr("src","/user/sendImgCode?timestamp=" + timestamp);
+			});
+
+			<!-- 表单验证 -->
+			//验证验证码
+			$("#register_fom input[name='code']").blur(function () {
+				var v = $(this).val();
+				if ( !v ){
+					return false;
+				}
+				var img = $(this).next();
+				$.ajax({
+					type : "post" ,
+					url : "/user/isCode",
+					data : {"code":v},
+					success : function ( res ) {
+						//验证 成功
+						if ( res.code == 0 ){
+							verifyTrue( img );
+						}else{
+							verifyFalse( img );
+						}
+					}
+				});
+			});
+
+			//验证密码
+			$("#register_fom input[name='passWord']").blur(function () {
+				var t = $(this);
+				var val = t.val();
+				var img = t.next();
+				if ( val.length > 6 && val.length < 12  ) {
+					verifyTrue( img );
+				}else{
+					verifyFalse( img );
+				}
+
+			});
+
+
+			//验证账号
+			$("#register_fom input[name='userName']").blur(function () {
+				var nameReg = /^[u4e00-u9fa5·0-9A-z]+$/ ;
+				var t = $(this);
+				var val = t.val();
+				var img = t.next();
+				console.log( "img : "+ img );
+				if ( !val || nameReg.test( val )  || val.length != $.trim( val ).length ) {
+					verifyFalse( img );
+					layerTips( alertFlase( "提示！" , "用户名必须有中文的呀！" ) );
+					return false;
+				}
+				$.ajax({
+					type : "post" ,
+					url : "/user/isExist",
+					data : {"userName":val},
+					success : function ( res ) {
+						if ( res.data ){
+							//账号已经存在
+							verifyFalse( img );
+						}else {
+							verifyTrue( img );
+						}
+					}
+				});
+			});
+		})
+	</script>
+</body>
+</html>

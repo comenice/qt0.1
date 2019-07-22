@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" contents="IE=edge">
+	<meta name="viewport" contents="width=device-width, initial-scale=1">
+	<title>登陆</title>
+	<link rel="stylesheet" type="text/css" href="/common/loginRegister.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+	<style>
+		.login_sub{
+			background-color: #808080;
+			width: 90%;
+			margin-left: 5%;
+			border:none;
+			color:#fff;
+			border-radius: 7px;
+			line-height: 35px;
+			transition:all 0.4s;
+			outline: none;
+		}
+		.login_sub:hover{
+			background-color: #4d4d4d;
+		}
+	</style>
+
+	<div class="loginregister">
+		<div class="picture">
+			<img >
+		</div>
+		<form id="login_fom">
+			<div class="user">
+				<i class="glyphicon glyphicon-user" style="color:#bfbdbd"></i><input name='userName' style="color: #1d2124" type="text" placeholder="请输入用户名">
+			</div>
+			<div class="user">
+				<i class="glyphicon glyphicon-lock" style="color:#bfbdbd"></i><input name='passWord' style="color: #1d2124" type="password" placeholder="请输入密码">
+			</div>
+			<div class="option">
+				<input type="checkbox" name="me">记住我
+				<div class="right">
+					<!--<a href="#">忘记密码？</a>-->
+					<a id="re" href="../user/register">注册</a>
+				</div>
+			</div>
+			<input id="login" type="button" class="login_sub" value="登录"></input>
+		</form>
+		<div class="third-party">
+			<div class="line">使用社交账号登录</div>
+			<a href="#" class="weixin"></a>
+		</div>
+	</div>
+
+
+
+<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+<!--<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/common/layui/lay/modules/layer.js"></script>
+<script src="/common/common.js"></script>
+<script src="/common/js/jquery.cookie.js"></script>
+	<script>
+		$(function () {
+
+
+			$(document).keyup(function(event){
+				if(event.keyCode ==13){
+					$("#login").trigger("click");
+				}
+			});
+
+			// 用户登陆
+			$("#login").click(function () {
+
+				var userName = $("#login_fom input[name='userName']").val();
+				var passWord = $("#login_fom input[name='passWord']").val();
+				//var me = $("#login_fom input[name='me']")[0].checked ;
+				if ( !userName || !passWord ){
+					layerTips( alertFlase( "提示", '还没有填写完整' ) );
+					return false;
+				}
+				//var formData = new FormData();
+				//formData.append( "me" , me+"" );
+				//formData.append( "userName" , userName );
+				//formData.append( "passWord" , passWord );
+				//console.log( formData );
+				$.post("/user/login/",$("#login_fom").serialize(), function( res ){
+					if ( res.data != null ){
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						cookie.set( "loginstate" , "0" );
+						parent.layer.close(index); //再执行关闭
+						layerTips( alertTrue( "提示",res.msg ) );
+					}else {
+						layerTips( alertTrue( "提示", res.msg ) );
+					}
+				});
+				// $.ajax({
+				// 	url : "/user/login/",
+				// 	type : "post" ,
+				// 	data : $("#login_fom").serialize(),
+				// 	success : function ( res ) {
+				//
+				// 	},error : function ( res ) {
+				//
+				// 	}
+				// });
+			});
+
+		});
+	</script>
+
+
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>用户信息</title>
+	<style type="text/css">
+
+		*{
+			margin: 0; padding: 0;
+		}
+		a{
+			color: #8a8a8a;
+			text-decoration: none;
+		}
+		#userinfo{
+			margin-top: 10px;
+			width: 800px;
+			height: 500px;
+			padding: 20px ;
+			padding-left: 0px;
+			margin-left: 30px;
+			overflow:hidden;
+			overflow-y:scroll;
+		}
+		#userinfo .fixed{
+			position: fixed;
+			top: 0;
+			background-color: #fff;
+			z-index: 20;
+			padding-top: 20px;
+			width: 780px;
+		}
+		#userinfo .top{
+			overflow: hidden;
+		}
+		#userinfo .top .portrait{
+
+			float: left;
+			border-radius: 4px;
+		}
+		#userinfo .top .portrait img{
+			width: 70px;
+			height: 70px;
+		}
+		#userinfo .top .name{
+			margin-left: 10px;
+			margin-top: 5px;
+			font-size: 22px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		#userinfo .top img{
+			margin-top: 5px;
+			width: 22px;
+			vertical-align: middle;
+		}
+		#userinfo .top .modify{
+			display: none;
+			margin-top: 5px;
+		}
+		#userinfo .top .modify input{
+			line-height: 30px;
+			border: 1px solid #ddd;
+			padding: 0 5px;
+			width: 150px;
+			font-size: 22px;
+			margin-left: 4px;
+			border-radius: 5px;
+			float: left;
+			outline: none;
+		}
+		#userinfo .top .modify button{
+			line-height: 30px;
+			color: #fff;
+			background-color: #d9534f;
+			border: 0;
+			border-radius: 5px;
+			outline: none;
+			width: 60px;
+			margin-left: 5px;
+		}
+		#userinfo .top .sex{
+			margin-left: 80px;
+			margin-top: 10px;
+			display: block;
+		}
+		#userinfo .nav .box{
+			position: relative;
+			border-bottom: 1px solid #cbc9c9;
+			padding: 0 5px;
+			padding-bottom: 5px;
+			margin-bottom: 10px;
+		}
+		#userinfo .nav .content{
+			margin-top: 130px;
+
+		}
+		#userinfo .nav .content .none{
+			display: none;
+		}
+		#userinfo .nav .box .portrait{
+			width: 36px;
+			height: 36px;
+			border-radius: 5px;
+			float: left;
+			margin-top: 5px;
+		}
+		#userinfo .nav .box .portrait img{
+			width: 36px;
+			height: 36px;
+			border-radius: 5px;
+		}
+		#userinfo .nav .box .title{
+			margin-left: 10px;
+			line-height: 36px;
+			margin-top: 5px;
+			width: 200px;
+			color: #666;
+			font-size: 18px;
+			display: inline-block;
+		}
+		#userinfo .nav .box .title:hover{
+			color: rgba(215,75,75,1);
+			cursor: pointer;
+		}
+		#userinfo .nav .box .dot{
+			float: right;
+			margin-top: 5px;
+			line-height: 36px;
+			color: #8a8a8a;
+		}
+		#userinfo .nav .box .dot img{
+			width: 20px;
+			vertical-align: text-bottom;
+		}
+		#userinfo .nav .box .said{
+			font-size: 20px;
+			width: 500px;
+			padding: 10px 0;
+		}
+		#userinfo .nav .box .btn{
+			color: #8a8a8a;
+		}
+		#userinfo .nav .box .del{
+			float: right;
+		}
+		#userinfo .nav .box .del a:hover{
+			color: #00aaaa;
+		}
+		.nav .title{
+			width: 100%;
+			display: flex;
+		}
+		.nav .title li{
+			line-height: 40px;
+			text-align: center;
+			font-size: 18px;
+			flex:1;
+			color: gray;
+			margin: 0 20px;
+			list-style-type: none;
+		}
+		.nav .title li:hover{
+			cursor: pointer;
+		}
+		.nav .title li.active{
+			color: #d9534f;
+			font-weight: 600;
+			border-bottom:2px solid #d9534f;
+		}
+
+
+
+
+		.innerbox::-webkit-scrollbar {/*滚动条整体样式*/
+			width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+			height: 4px;
+		}
+		.innerbox::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+			border-radius: 5px;
+			-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+			background: rgba(0,0,0,0.2);
+		}
+		.innerbox::-webkit-scrollbar-track { /*滚动条里面轨道*/
+			-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+			border-radius: 0;
+			background: white;
+			background: rgba(0, 0, 0, 0.1);
+		}
+
+
+	</style>
+
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+</head>
+<body class="" style="border-radius: 15px">
+	<div id="userinfo" class="innerbox">
+		<div class="fixed">
+			<form id="form_info">
+				<div class="top">
+					<div class="portrait">
+						<img  id="lookUrl" th:src="${T(com.zxb.qt.exploit.common.shiro.CurrentUser)?.getUser()?.getUrl()}" src="http://139.224.129.134/file/img/blog/0.jpg">
+					</div>
+					<button onclick="logout()" style="float: right" type="button" class="btn btn-danger">退出登陆</button>
+					<div class="val" style="display:inline-block">
+						<span id="lookName" class="name" th:text="${T(com.zxb.qt.exploit.common.shiro.CurrentUser)?.getUser()?.getUserName()}">晴天</span>
+						<img src="http://139.224.129.134/file/img/icon/default/edit.svg">
+					</div>
+					<span class="sex">未知</span>
+					<div class="modify">
+						<input disabled type="text" name="userName" style="font-size: 14px" placeholder="目前不提供修改！" >
+						<button type="button" id="update_info">确定</button>
+					</div>
+				</div>
+			</form>
+			<div class="nav fx">
+				<ul class="title" id="tip">
+					<li class="active"><span class="discuss">0</span> 评论</li>
+					<li><span class="collect">0</span> 回复</li>
+					<li><span class="reply">0</span>消息</li>
+				</ul>
+			</div>
+		</div>
+		<div class="nav">
+			<div class="content">
+				<div id="comments">
+					<!--<div class="box">-->
+						<!--<div class="portrait"><img src="http://139.224.129.134/file/img/blog/wx.png"></div>-->
+						<!--<span class="title">四个春天试试</span>-->
+						<!--<div class="dot"><img src="http://139.224.129.134/file/img/icon/default/praised.svg">1</div>-->
+						<!--<div class="said">好看</div>-->
+						<!--<div class="del btn">删除</div>-->
+						<!--<span class="time btn">4月11日</span>-->
+					<!--</div>-->
+				</div>
+				<div class="none">期待中！</div>
+				<div class="none">期待中！</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<!--
+		用户ID 用户可以通过点击自己的头像 ， 和别人的头像 分别查看信息
+		如果value 为null查询自己的， 否则为其他的
+	-->
+	<input id="qUserId" type="hidden" th:value="${#request.getAttribute('userId')}">
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script src="../common/layui/lay/modules/layer.js"></script>
+<script src="//layui.hcwl520.com.cn/layui/layui.js?v=201811010202"></script>
+
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="../common/common.js"></script>
+
+	<script type="text/javascript">
+		// layer.msg('玩命提示中');
+		// var obj=document.querySelector("#userinfo");
+		$(function () {
+			layui.use('flow', function(){
+				var flow = layui.flow;
+				var uid = $("#qUserId").val();
+				flow.load({
+					 mb:50
+					,scrollElem:'#userinfo'
+					,elem: '#comments' //指定列表容器
+					,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+						var lis = [];
+						//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+						var tag = "";
+						//page--;
+						$.get('/comment/commentBlogUserInfo?limit=' + page+"&uid="+uid , function(res){
+							//评论总数
+							$("#tip").find(".discuss").html( res.total );
+							var data = res.data;
+							//查看对方的信息 对方头像昵称    id=lookId
+							if ( data[0] ){
+								$("#lookUrl").attr( "src" , data[0].lookUrl );
+								$("#lookName").html( data[0].lookUserName );
+							}
+
+							//拼接评论信息
+							for ( i = 0 ; i < data.length ; i++ ){
+								var comment = "";
+								if ( uid.length > 0  ){
+									//如果uid 有值是查看别人的信息
+									comment = appendUserInfoComments( data[i] , false );
+								}else{
+									//没有 就是自己的可以进行删除等操作
+									comment = appendUserInfoComments( data[i] , true );
+								}
+								lis.push(  comment );
+							}
+							//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+							//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+							next(lis.join(''), page < res.pages);
+						});
+					}
+				});
+			});
+
+
+
+			function appendUserInfoComments( data  , isRoot ){
+				var del = "";
+				if ( isRoot ){
+				    del = "<div class=\"del btn\"><a id='del' data-pid='"+data.blogId+"' data-value='"+data.id+"' href='#'> 删除 </a></div>" ;
+				}
+				var cs = "<div class=\"box\">\n" +
+						"<div class=\"portrait\" ><img src="  +data.createBlogUserUrl+  "></div>\n" +
+						"<span class=\"title\"  data-blogId='"+data.blogId+"' id='blogTitle'> "+ data.blogTitle +" </span>\n" +
+						"<div class=\"dot\" disabled='true'><img src=\"http://139.224.129.134/file/img/icon/default/praised.svg\">"+data.starCount+"</div>\n" +
+						"<div class=\"said\"> " + data.content + " </div>\n" +
+						" "+del+" <span class=\"time btn\"> " + data.createTime + " </span>\n" +
+						"</div>" ;
+				return cs
+			}
+
+			// $.ajax({
+			// 	type : "post" ,
+			// 	url : "/comment/commentBlogUserInfo" ,
+			// 	success : function ( res ) {
+			// 		var item = res.data ;
+			// 		console.log( item );
+			// 		//评论量
+			// 		$("#tip").find(".discuss").html( item.length );
+			// 		if ( item.length >  0 ){
+			// 			var cs = "";
+			// 			for (  i = 0 ; i< item.length ; i++  ){
+			// 				 var data = JSON.parse(  JSON.stringify(  item[i]  ) );
+			// 				//创建博客的用户信息
+			// 				cs += "<div class=\"box\">\n" +
+			// 								"<div class=\"portrait\"><img src="  +data.createBlogUserUrl+  "></div>\n" +
+			// 								"<span class=\"title\"> "+ data.blogTitle +" </span>\n" +
+			// 								"<div class=\"dot\"><img src=\"http://139.224.129.134/file/img/icon/default/praised.svg\">1</div>\n" +
+			// 								"<div class=\"said\"> " + data.content + " </div>\n" +
+			// 								"<div class=\"del btn\"><a id='del' data-value='"+data.id+"' href='#'> 删除 </a></div>\n" +
+			// 								"<span class=\"time btn\"> " + data.createTime + " </span>\n" +
+			// 						  "</div>" ;
+			// 			}
+			// 			$("#comments").append( cs );
+			// 		}else{
+			//
+			// 		}
+			// 	}
+			// });
+
+
+			$(document).on("click","#blogTitle",function () {
+				var id = $(this).attr( "data-blogId" );
+				openPostWindow( "/home.html" , id );
+			})
+
+
+			$("#update_info").click(function () {
+				return false;
+				var userName = $("#form_info input[name='userName']").val();
+				if ( !userName ){return false}
+				$.ajax({
+					type:"post",
+					url:"./update",
+					data:{"userName":userName},
+					success : function ( res ) {
+						console.log( res );
+					}
+				});
+
+			});
+
+			//删除评论
+			$(document).on( 'click' , '#del' , function () {
+				var t= $(this);
+				var json = {
+					"parentId":   t.attr( "data-pid" ), //用于 评论-1
+					"id": t.attr( "data-value" )  //删除评论
+				};
+				$.ajax({
+					type : 'post' ,
+					url : '/comment/delCommentById' ,
+					data : json,
+					success : function ( res ) {
+						if( res.code >  0  ){
+							t.parent().parent().remove();
+							$("#tip").find(".discuss").html( $("#tip").find(".discuss").html()-1 );
+							layer.msg(res.msg, {
+								offset: '[auto,240px]',
+								anim: 2
+							});
+						}else{
+							layerTips( alertFlase( "提示" , res.msg ) )
+						}
+					}
+				});
+			});
+
+
+			$(".nav .title li").click(function() {
+				$(this).addClass('active').siblings().removeClass('active');
+				var i=$(this).index();
+				$("#userinfo .nav .content>div").eq(i).removeClass('none').siblings().addClass('none');
+			});
+			$("#userinfo .top img").click(function() {
+				$("#userinfo .top .modify").css("display","block");
+				$("#userinfo .top .val").css("display","none");
+			});
+			$("#userinfo .top .modify button").click(function(){
+				$("#userinfo .top .modify").css("display","none");
+				$("#userinfo .top .val").css("display","block");
+			});
+
+
+		})
+		// 	layer.open({
+		// 		title:false,
+		// 		type:1,
+		// 		content:$("#userinfo"),
+      	// 		area: ['850px', '550px'],
+      	// 		resize:false,
+      	// 		fixed: false,
+      	// 		closeBtn: 0,
+		// 		success: function () {
+		// 			$(".nav .title li").click(function() {
+		// 				$(this).addClass('active').siblings().removeClass('active');
+		// 				var i=$(this).index();
+		// 				$("#userinfo .nav .content>div").eq(i).removeClass('none').siblings().addClass('none');
+		// 			});
+		// 			$("#userinfo .top img").click(function() {
+		// 				$("#userinfo .top .modify").css("display","block");
+		// 				$("#userinfo .top .val").css("display","none");
+		// 			});
+		// 			$("#userinfo .top .modify button").click(function(){
+		// 				$("#userinfo .top .modify").css("display","none");
+		// 				$("#userinfo .top .val").css("display","block");
+		// 			});
+		// 		}
+		// 	})
+	</script>
+
+</html>

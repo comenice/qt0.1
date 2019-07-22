@@ -5,11 +5,13 @@
     <title>写博客</title>
 </head>
 
-    <link href="./common/bootstrap/css/bootstrap.css">
-
     <link rel="stylesheet" href="./common/editor.md-master/css/editormd.css" />
-    <link rel="stylesheet" href="./common/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./common/flat_ui/app/css/flat-ui.css">
+
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/flat-ui/2.3.0/css/flat-ui.css" rel="stylesheet">
+
+    <!--<link rel="stylesheet" href="./common/bootstrap/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="./common/flat_ui/app/css/flat-ui.css">-->
 
 
     <style>
@@ -91,21 +93,30 @@
         </div>
     </form>
 
-    <script src="./common/js/jquery-3.2.1.js"></script>
-    <script src="./common/bootstrap/js/bootstrap.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/flat-ui/2.3.0/js/flat-ui.min.js"></script>
+
+    <!--<script src="./common/bootstrap/js/bootstrap.js"></script>-->
     <!-- 富文本 -->
     <script src="./common/editor.md-master/editormd.min.js"></script>
     <!--  富文本初始化 工具栏.. -->
     <script src="./custom/js/editor/index.js"></script>
     <!-- ui插件 -->
-    <script src="./common/flat_ui/app/scripts/flat-ui.js"></script>
+    <!--<script src="./common/flat_ui/app/scripts/flat-ui.js"></script>-->
     <!-- layer 弹层 -->
     <script src="../common/layui/lay/modules/layer.js"></script>
 
+    <script type="text/javascript">
+        window.onbeforeunload = function() {
+            return "文章还没有保存，您确定退出吗？"; // return 这句必不可少
+        }
+    </script>
     <script>
+
         $(function () {
             $("#fabu").modal("hide");
-            openMdeditor( "my-editormd",null );
+            var testEditor = openMdeditor( "my-editormd",null );
 
             $("#blog_submit").click(function () {
                 $(".tagsinput").tagsinput();
@@ -131,15 +142,13 @@
                     },
                     yes :function ( index ){ //按钮1  提交的回调事件
                         $(function(){
-                            var data = $("form").not( $("#tag_select") ).serialize();
-                            data = decodeURIComponent(data,true);
-
+                            var data = $("form").serialize();
                             var tags  = $('#tag_select').find(':selected');
                             var tagsValues = "";
                             for ( i = 0 ; i<tags.length ; i++ ){
                                 tagsValues +=  $( tags[i] ).val() + "," ;
                             }
-                            console.log( data );
+                            //console.log( data );
                             tagsValues = tagsValues.substring(0, tagsValues.length - 1) ;
                             var pData = data +  "&tags=" + tagsValues ;
 
@@ -147,11 +156,10 @@
                            // converter.innerHTML = pData;
                            // pData = converter.innerText;
                           //  converter = null;
-                            pData = pData.replace(/&quot/gi,' ');
+                            pData = pData.replace(/&quot/,' ');
                            // pData=b.replace(/[&\|\\\*^%$#@\-]/g," ");
-                            alert( pData );
-
-                            console.log( pData );
+                            //console.log( testEditor.getHTML() );
+                            //console.log( pData);
                             $.ajax({
                                 url : "/blog/saveBlog" ,
                                 data: pData,
@@ -160,7 +168,6 @@
                                     alert( res );
                                 }
                             });
-
                             layer.close(index);
                         });
                     },btn2 : function ( index ) {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="./common/photo/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="./common/photo/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="./common/css/blog-comment.css">
+    <script src="./common/photo/js/modernizr.custom.js"></script>
+</head>
+<body>
+
+<style>
+
+</style>
+
+<div class="back">
+    <a onclick="javascript:history.back();"><img src="http://139.224.129.134/file/img/icon/default/back.svg"></a>
+</div>
+
+<div class="container">
+    <h1 >画廊 <a href="index.html"> </h1>
+    <div id="gr-gallery" class="gr-gallery">
+        <div class="gr-main">
+            <th:block th:each="basic:${galleryBasicLists}">
+                <figure>
+                    <div>
+                        <img th:src="${basic.httpImgUrl}" src="http://img0.dili360.com/ga/M01/48/E0/wKgBzFmyTcaACuVKACZ-qAthuNY888.tub.jpg@!rw9" alt="img01" />
+                    </div>
+                    <figcaption>
+                        <h2><span>美丽的风景 耐人寻味</span></h2>
+                        <div><p>2009-1-2<a href="http://www.flickr.com/photos/thomasclaveirole">Thomas Claveirole</a></p></div>
+                    </figcaption>
+                </figure>
+            </th:block>
+
+        </div>
+    </div>
+</div><!-- /container -->
+<script src="../common/js/jquery-3.2.1.js"></script>
+<script src="./common/photo/js/wallgallery.js"></script>
+<script>
+    $(function() {
+
+        Gallery.init( {
+            layout : [3,2,3,2]
+        } );
+
+    });
+</script>
+</body>
+</html>

@@ -20,11 +20,11 @@
 #    testOnReturn: false
 #    filters: stat,wall,slf4j
 #    logSlowSql: true
-
-
-
-  #typeAliasesPackage: cn.kiwipeach.blog.domain
+#    typeAliasesPackage: cn.kiwipeach.blog.domain
 mybatis-plus:
   mapper-locations: classpath*:/mappers/*Mapper.xml
-  plconfiguration:
-      log-impl: org.apache.ibatis.logging.stdout.StdOutIm
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+#  plconfiguration:
+#      log-impl: org.apache.ibatis.logging.stdout.StdOutIm

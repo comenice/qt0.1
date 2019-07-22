@@ -16,11 +16,15 @@ function openMdeditor( id , path  ){
             editorTheme: "3024-day",//编辑主题
             saveHTMLToTextarea: true,
             emoji: true,
+            imageUpload    : true ,
+            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"] ,
+            imageUploadURL : "/blog/saveEdImg" ,
             taskList: true,
             tocm: true,                  // Using [TOCM]
             tex: true,                   // 开启科学公式TeX语言支持，默认关闭
             flowChart: true,             // 开启流程图支持，默认关闭
             sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            htmlDecode : "style,script,iframe|on*",
             // toolbarIcons  : function() {
             //     return ["undo","redo","|","bold","italic","quote","uppercase","lowercase","|","h1","h2","h3","h4","|","list-ul","list-ol","hr","|","link","image","code","code-block","table","html-entities","|","watch","preview","fullscreen","clear","|","help","testIcon"]
             // },
@@ -44,13 +48,10 @@ function openMdeditor( id , path  ){
             //var cursor    = cm.getCursor();     //获取当前光标对象，同cursor参数
             //var selection = cm.getSelection();  //获取当前选中的文本，同selection参数
             var html = $("#my-editormd .markdown-body").html();
-            console.log( html );
-
             var json = $("form").serialize();
-            alert( json );
-
         }}
 
 
         });
+        return testEditor;
 }

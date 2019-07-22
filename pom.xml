@@ -6,6 +6,7 @@
     <modules>
         <module>qt-manager</module>
         <module>qt-comm</module>
+        <module>qt-new</module>
     </modules>
 
     <parent>
@@ -49,6 +50,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>2.3.14</version>
         </dependency>
 
 
@@ -97,8 +105,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
-
     </build>
 
 

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="../common/editor.md-master/css/editormd.css" />
+    <!--<link rel="stylesheet" href="../common/css/load.css">-->
+    <link rel="stylesheet" type="text/css" href="//layui.hcwl520.com.cn/layui/css/layui.css?v=201811010202">
+    <script type="text/javascript">
+        // // 等待所有加载
+        // $(window).load(function(){
+        //     $('body').addClass('loaded');
+        //     $('#loader-wrapper .load_title').remove();
+        // });
+
+    </script>
+</head>
+<body>
+
+
+
+<div id="container" th:attr="data-pid=${data.basic_id}" class="contentsbox container" style="position: relative;">
+    <div class="contents">
+        <div class="title">
+            <h1 id="title" th:text="${data.title}" class="name">标题</h1>
+            <span id="date"  th:text="${data.getCreateTimeToS()}" class="date">2019-04-19</span>
+        </div>
+        <div class="article">
+            <div th:utext="${data.content}" id="doc-content">
+
+          </div>
+            <div class="line"></div>
+        </div>
+        <div class="foot">
+            <span class="glyphicon glyphicon-tag" style="color: #999;margin-right: 20px;vertical-align: middle;"></span>
+            <span th:each="tag : ${data.tagList}">
+                <span  th:class="${tag.color}" class="mytag" th:text="${tag.name}"> </span>
+            <span/>
+        </div>
+    </div>
+
+    <!-- 上一页 下一页 begin -->
+    <div  id="blog_sx" class="col" style="position:absolute; left: -30px;float: left;width: 1230px">
+        <div class="col-md-6 skip">
+            <a href="#" th:id="${data?.previousBlog?.basic_id}" th:if="${data?.previousBlog?.title}" th:text="${'👈'+data.previousBlog.title}">上一篇<span class="glyphicon glyphicon-upload" style="margin-left: 5px;transform: rotate(90deg);"></span></a>
+        </div>
+
+        <div class="col-md-6 skip" style="text-align: right">
+            <a href="#" th:id="${data?.nextBlog?.basic_id}" th:if="${data?.nextBlog?.title}" th:text="${data?.nextBlog?.title}+'👉'">下一篇<span class="glyphicon glyphicon-upload" style="margin-left: 5px;transform: rotate(90deg);"></span></a>
+        </div>
+    </div>
+    <!-- 上一页 下一页 end -->
+
+</div>
+
+
+
+
+
+
+<div class="comment">
+    <div class="login">
+        <div class="round">晴天</div>
+        <div class="semicircle"></div>
+    </div>
+    <textarea id="user_content" placeholder="来说两句吧..."></textarea>
+    <div class="sending">
+        <span style="display: none;position: absolute;top: 10px;right: 130px;" id="user_content_null">评论不能为空！</span>
+         <!--
+             parentId //父ID 顶级ID是博客ID
+             passivityUserId //被评论的人
+             comment-passiveUserId=${blogDetail.getUserId()}
+             ,comment-parentId=${blogDetail.getId()}
+             ,comment-count=${blogDetail.getStarCount()}
+         -->
+         <button
+                th:attr="comm-parentId=${data.getBasic_id()},comm-passivityUserId=${data.getUserId()}" type="button" id="comment">
+            评论
+        </button>
+    </div>
+    <div class="allcomments">
+        <div class="thread">
+            <div class="frame">
+
+                <div  class="comment_msg">评论</div>
+                <div class="cover"></div>
+            </div>
+            <div class="sum"><span class="count" id="commentCount" th:text="${data.getCommentCount() == null ? 0 : data.getCommentCount()}">1</span>  条评论</div>
+        </div>
+        <div class="newbox" id="comments">
+            <div class="title_icon"></div><span class="title">最新评论</span>
+            <div id="news" class="new">
+
+                <!--<div class="portrait"><img src="85db065584511304e85b0553b70bfc9e6f959460782a-3NxbaY_fw658.jpg"></div>-->
+                <!--<a href="#" class="Nickname">芸者</a>-->
+                <!--<span class="city">[<span id="city">长沙</span>市网友]</span>-->
+                <!--<span class="time">2019年3月27日 10:55</span>-->
+                <!--<p class="speak">delia's back</p>-->
+
+
+                <!--<div  class="answers" id="answers">-->
+                    <!--<div  class="answer">-->
+                        <!--<div class="portrait"><img src="85db065584511304e85b0553b70bfc9e6f959460782a-3NxbaY_fw658.jpg"></div>-->
+                        <!--<a href="#" class="Nickname">天下第一</a><span class="a">回复</span>-->
+                        <!--<div class="portrait"><img src="85db065584511304e85b0553b70bfc9e6f959460782a-3NxbaY_fw658.jpg"></div>-->
+                        <!--<a href="#" class="Nickname">芸者</a>-->
+                        <!--<span class="time">2019年3月27日 10:55</span>-->
+                        <!--<p class="speak">delia's back</p>-->
+                        <!--<div class="Interaction">-->
+                            <!--<a href="#" id="answer">回复</a>-->
+                            <!--<a class="glyphicon glyphicon-thumbs-up"><span>10</span></a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div  class="answer">-->
+                        <!--<div class="portrait"><img src="85db065584511304e85b0553b70bfc9e6f959460782a-3NxbaY_fw658.jpg"></div>-->
+                        <!--<a href="#" class="Nickname">天下第一</a><span class="a">回复</span>-->
+                        <!--<div class="portrait"><img src="85db065584511304e85b0553b70bfc9e6f959460782a-3NxbaY_fw658.jpg"></div>-->
+                        <!--<a href="#" class="Nickname">芸者</a>-->
+                        <!--<span class="time">2019年3月27日 10:55</span>-->
+                        <!--<p class="speak">delia's back</p>-->
+                        <!--<div class="Interaction">-->
+                            <!--<a href="#" id="answer">回复</a>-->
+                            <!--<a class="glyphicon glyphicon-thumbs-up"><span>10</span></a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="Interaction">-->
+                    <!--<a href="#" id="reply">回复</a>-->
+                    <!--<a class="glyphicon glyphicon-thumbs-up"><span>10</span></a>-->
+                    <!--<a class="glyphicon glyphicon-thumbs-down"><span>10</span></a>-->
+                    <!--<a href="#" id="replys">查看回复 (10)</a>-->
+                <!--</div>-->
+
+            </div>
+    </div>
+</div>
+
+    <!--<div id ="reply_layer" style="width: 500px;height: 300px;margin: auto auto">-->
+        <!--<div>-->
+            <!--<textarea>-->
+
+            <!--</textarea>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<button type="button" class="btn btn-success">（成功）Success</button>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+</body>
+</html>
+
+
+<style type="text/css">
+    /*所有标签边距都设置为0*/
+    *{margin: 0;padding:0;}
+    body{
+        background-color: #eaeaea;
+    }
+    /*整个内容盒子设置了有效尺寸，限制内容在范围1000px内显示*/
+    .contentsbox{
+        margin: auto;
+    }
+    /*每一小块的div，设置了白背景 灰左右边框*/
+    .contentsbox .contents{
+        background-color: #fff;
+        border-right: 1px solid #d1d1d1;
+        border-left: 1px solid #d1d1d1;
+        margin: 30px 0;
+    }
+    /*这是文章的标题 设置灰色左边框 内边距*/
+    .contentsbox .contents .title{
+        color: #999999;
+        border-left: 5px solid #4d4d4d;
+        padding: 30px 100px 15px 100px;
+        margin-bottom: 12px;
+    }
+    /*文章标题的名字 设置了粗细 颜色 把块元素变成了行内元素*/
+    .contentsbox .contents .title .name{
+        margin: 0;
+        color: #696969;
+        font-weight: 400;
+        display: inline-block;
+    }
+    /*这是日期 向右浮动 设置和名字一样的行高可以垂直对齐*/
+    .contentsbox .contents .title .date{
+        float: right;
+        line-height: 43px;
+    }
+    /*这是包裹文章内容的div*/
+    .contentsbox .contents .article{
+        padding: 0 100px;
+    }
+    /*这是文章内容 设置了边距*/
+    .contentsbox .contents .article p{
+        margin: 10px 0;
+        line-height: 26px;
+    }
+    /*这是一个超链接 查看全文*/
+    .contentsbox .contents .article a{
+        text-decoration: none;
+    }
+    /*这是灰色的分界线*/
+    .contentsbox .contents .article .line{
+        height: 30px;
+        border-bottom: 1px solid #dddddd;
+    }
+    /*这是底部的div*/
+    .contentsbox .contents .foot{
+        padding: 20px 100px;
+        position: relative;
+    }
+    /*这是读书的那两个字 定位在棕色标签上了*/
+    .skip_right{
+        background-color: red;
+        width: 500px;
+        margin: auto;
+        text-align: right;
+
+    }
+    .skip_left{
+        width: 500px;
+        margin: auto;
+        text-align: left;
+        margin-bottom: 50px;
+    }
+    .contentsbox .contents .foot .read{
+        position: absolute;
+        left: 146px;
+        line-height: 42px;
+        font-size: 12px;
+        color: #fff;
+    }
+
+
+
+
+
+    .skip a{
+        text-decoration: none;
+        font-size: 16px;
+        transition: all 0.4s;
+    }
+    .skip a:hover{
+        color: #5d5d5d;
+        text-decoration: none;
+    }
+    .comment{
+
+        width: 1000px;
+        margin: auto;
+        margin-top: 90px;
+    }
+    .comment .login{
+        position: relative;
+        float: left;
+        margin-top: -42px;
+        margin-left: 13px;
+    }
+    .comment .login .round{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 44px;
+        height: 44px;
+        border: 1px solid #959595;
+        border-radius: 50%;
+        color: #959595;
+        line-height: 44px;
+        text-align: center;
+        font-size: 14px;
+        z-index: 10;
+    }
+    .comment .login .semicircle{
+        border: 1px solid #959595;
+        border-left-color: transparent;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-radius: 50%;
+        background-color: #eaeaea;
+        width: 54px;
+        height: 54px;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+    }
+    .comment textarea{
+        background-color: rgba(0,0,0,0);
+        border:1px solid #959595;
+        border-radius: 10px;
+        width: 1000px;
+        height: 100px;
+        padding: 20px;
+        outline: none;
+        resize:none;
+    }
+    .comment textarea::-webkit-input-placeholder {
+        color: #bfc0c0;
+    }
+    .comment .sending{
+        position: relative;
+        text-align: right;
+        height: 35px;
+        margin: 10px 0 30px 0;
+        width: 1000px;
+    }
+    .comment .sending:hover div{
+        border: 10px solid #737171;
+        border-top: none;
+        border-left-color: transparent;
+        border-right-color: transparent;
+    }
+    .comment .sending:hover button{
+        background-color: #737171;
+    }
+    .comment .sending div{
+        width: 0;
+        height: 0;
+        border: 10px solid #868686;
+        border-top: none;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        position: absolute;
+        right: 103px;
+        bottom: 0;
+    }
+    .comment .sending button{
+        width: 115px;
+        height: 35px;
+        line-height: 35px;
+        font-size:18px;
+        color: #fff;
+        background-color: #868686;
+        border: 0;
+        border-radius: 10px;
+    }
+    .comment .allcomments .thread{
+        border-bottom: 1px solid #959595;
+        width: 1000px;
+        height: 28px;
+        margin-bottom: 18px;
+    }
+    .comment .allcomments .thread .frame{
+        position: relative;
+        width: 60px;
+        height: 38px;
+        display: inline-block;
+    }
+    .comment .allcomments .thread .comment_msg{
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: center;
+        line-height: 30px;
+        width: 60px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1px solid #959595;
+        border-bottom-color: transparent;
+        font-size: 16px;
+        color: #959595;
+    }
+    .comment .allcomments .thread .cover{
+        width: 64px;
+        height: 8px;
+        position: absolute;
+        left: -2px;
+        bottom: 2px;
+        background-color: #eaeaea;
+        z-index: 10;
+    }
+    .comment .allcomments .thread .sum{
+        float: right;
+        color: #959595;
+    }
+    .comment .allcomments .thread .sum span{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .comment .allcomments .new .title_icon{
+        width: 5px;
+        height: 18px;
+        background-color: #959595;
+        border-radius: 5px;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 18px;
+        vertical-align: middle;
+    }
+    .comment .allcomments .new .title{
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        color: #959595;
+        margin-bottom: 18px;
+    }
+
+    .comment .allcomments .newbox{
+        margin-bottom: 20px;
+
+    }
+    .comment .allcomments .newbox .new{
+        margin-bottom: 6px;
+        border-bottom: 1px dashed #c8c8c8;
+    }
+
+    .comment .allcomments .newbox .title_icon{
+        width: 5px;
+        height: 18px;
+        background-color: #959595;
+        border-radius: 5px;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 18px;
+        vertical-align: middle;
+    }
+    .comment .allcomments .newbox .title{
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        color: #959595;
+        margin-bottom: 18px;
+    }
+    .comment .allcomments .newbox .new .portrait{
+        width: 40px;
+        height: 40px;
+        overflow: hidden;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: text-top;
+        margin-right: 10px;
+    }
+    .comment .allcomments .newbox .new .portrait img{
+        height: 40px;
+    }
+    .comment .allcomments .newbox .new .Nickname{
+        color: #959595;
+        font-weight: bold;
+        margin: 0 5px;
+    }
+    .comment .allcomments .newbox .new .city{
+        color: #d4d3d3;
+    }
+    .comment .allcomments .newbox .new .time{
+        color: #c0c0c0;
+        float: right;
+    }
+    .comment .allcomments .newbox .new .speak{
+        margin:0 60px;
+    }
+    .comment .allcomments .newbox .new .Interaction{
+        text-align: right;
+        margin: 6px 0;
+        padding-left: 10px;
+        padding-bottom: 10px;
+    }
+    .comment .allcomments .newbox .new .Interaction a{
+        color: #999;
+        text-decoration: none;
+        margin-right: 20px;
+    }
+    .comment .allcomments .newbox .new .answers{
+        margin: auto;
+        padding: 20px;
+        display: none;
+        background-color: #fcfcfc;
+        border-bottom: 1px dashed #c8c8c8;
+    }
+
+    .comment .allcomments .newbox .new .answer .a{
+        margin: 0 5px;
+    }
+    .comment .allcomments .newbox .new .answer:nth-child(6){
+        margin-top: 10px;
+    }
+    .comment .allcomments .newbox .new .answer .portrait{
+        margin: 0;
+        vertical-align: middle;
+    }
+</style>
+
+<script type="text/javascript">
+
+    var testEditor;
+        $(function() {
+
+            testEditor = editormd.markdownToHTML("doc-content", {//注意：这里是上面DIV的id
+                htmlDecode : "style,script,iframe",
+                emoji : true,
+                taskList : true,
+                tex : true, // 默认不解析
+                flowChart : true, // 默认不解析
+                sequenceDiagram : true, // 默认不解析
+                codeFold : true
+            });
+
+        //博客详情的第三方链接
+        $(document).on( "click" , "a[href!='#']" , function () {
+            var s = $(this).prop( "href" );
+            window.open( s , "_blank" );
+            return false;
+        });
+
+
+        //上一篇 下一篇
+        $("#blog_sx a").click(function () {
+            var id = $(this).attr( "id" );
+            openPostWindow( "/home.html" , id );
+
+        });
+
+        //回复
+        $(document).on( "click" , "#reply" , function () {
+
+            var passivityUserId = $(this).attr( "comm-passivityuserid" );
+            var parentId = $(this).attr( "comm-parentId" );
+            if( passivityUserId == null || parentId == null ){
+                //alert( "刷新一些试试" )
+                location.reload();
+                return false;
+            }
+            cookie.set( "go" , "reply" );
+            var b = isLogin();
+            if( cookie.get( "loginstate" ) ){
+                openReply( passivityUserId , parentId );
+                return false;
+            }
+                return false;
+        });
+
+
+
+                var flow;
+                //初始化评论
+                layui.use('flow', function(){
+                    flow = layui.flow;
+                    //信息流
+                    loadComment( flow );
+                });
+
+
+
+
+        $(document).on( "click" , "#star" , function () {
+            var v = $(this);
+            var commentId = v.next().attr( "data-id" );
+            var h = v.html();
+            $.ajax({
+                type : "post",
+                url : "/comment/star",
+                data : {"commentId":commentId},
+                success : function ( res ) {
+                    if ( res.code > 0 ){
+                        v.html( parseInt( h )+1 );
+                        parent.layer.msg(res.msg,{
+                            offset: ['660px','']
+                        });
+                    }else{
+                        parent.layer.msg(res.msg,{
+                            offset: ['660px','']
+                        });
+                    }
+                }
+            });
+        });
+
+       // 评论
+        $("#comment").click(function () {
+            var v = $("#user_content").val();
+            //没有输入评论
+            if ( !v ){
+                $("#user_content_null").css('display','block');
+                return false;
+            }
+            $("#user_content_null").css('display','none');
+
+            //评论新增成功后 会拿着下的数据(为了减轻服务器压力 并不通过后台回调参数)在评论列表追加
+            //为了使时间一致性 在这里获取时间并且绑定参数
+            //转换成指定格式
+            var time = $.myTime.UnixToDate( $.myTime.CurTime() ) ;
+            //获取后台需要参数
+            var json = {
+                "parentId":  $(this).attr( "comm-parentId" ),
+                "passivityUserId": $(this).attr( "comm-passivityUserId" ),
+                "createTime" : time ,
+                "content": v
+            };
+            $("#user_content").val("");
+            //如果登陆 直接评论咯
+            if( cookie.get( "loginstate" ) ){
+                comment( json );
+                $("#news").html("");
+                loadComment( flow );
+                return false;
+            }
+            /*
+                没有登陆
+                通常情况下 用户评论如果没有登陆 会让他先登陆，登陆成功在评论
+                如果是这样 用户为登陆情况下就要点击两次评论按钮，为了提升体验，就得在
+                登陆成功后自动评论，这里就存在一个问题，因为使用登陆是通过弹层来控制的
+                在判断未登陆弹出登陆框的时候 后面的程序已经执行完毕了 所有这样并不理想。
+                后面使用的方法就是只能先提前获取后台需要的数据:
+                    1.通过浏览器本地保存(sessionStorage..)
+                    2.或则作为方法参数传入  isLogin();
+                在判断未登陆弹出登陆框的时候 后面程序照样执行完毕了 包括数据存在了 sessionStorage中
+                下一步就是获取layer弹层销毁并且是在登陆成功状态在进行评论 这里也有问题：
+                    弹层是可以通过点击 非本身内容进行关闭的(总不能设置不能关闭吧，那体验也太不好啦)
+                     1.程序照常执行，在layer弹层销毁后，管它弹层是怎样销毁有没有登陆成功 照样评论.只不过评论失败 (给出提示)。
+                     2.登陆成功后保存状态到本地中，弹层销毁后，判断状态是否是登陆成功状态 用户退出,删除本地状态 或则改变。
+                     在有时候 这个弹层登陆 并非是评论时出现的,利用下面的go localStorage.setItem( "go" , "comment" ); 给定具体执行内容
+                 这是我个人的做法，或许有什么更简单的办法来实现。。。 我也想知道很简单的办法。
+                 ( 后面换成了cookie )
+            */
+            isLogin();
+            cookie.set( cookie.go , "comment" );
+            //转成 json字符串存入
+            localStorage.setItem( "comment" , JSON.stringify( json ) );
+            //comment( json );
+        });
+
+            /**
+             * 获取 一条评论下面的 回复信息
+             * @type {number}
+             */
+            $(document).on( "click" , "#replys" , function () {
+                var v = $(this).html();
+                //评论  --- 评论 ()
+                var vss = v.split(" ");
+                v1 = vss[0];
+                v2 = vss[1];
+                if (v2 == "(0)" ){
+                    //没有评论
+                    //没有评论
+                    return false;
+                }
+                var t = $(this).parent().parent().find("#answers");
+                t.html("");
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    type : "post",
+                    url : "/comment/queryReplyinfo",
+                    data : {"id":id},
+                    success : function ( res ) {
+                        if ( res.code > 0 ){
+                           var data = res.data;
+                           var d = "";
+                           for ( i = 0 ; i < data.length ; i++ ){
+                               d += appendReply( data[i] );
+                            }
+                           t.append( d );
+                        }else{
+                            layer.msg(res.msg);
+                        }
+                    }
+                });
+
+                if ( v1 != "收起" ){
+                    t.slideDown(200);
+                    $(this).html("收起"+" "+v2);
+                }else{
+                    t.slideUp(200);
+                    $(this).html("查看回复"+" "+v2);
+                }
+                return false;
+            });
+
+
+    });
+</script>
+<script src="../common/editor.md-master/lib/marked.min.js"></script>
+<script src="../common/editor.md-master/lib/prettify.min.js"></script>
+<script src="../common/editor.md-master/lib/raphael.min.js"></script>
+<script src="../common/editor.md-master/lib/underscore.min.js"></script>
+<script src="../common/editor.md-master/lib/sequence-diagram.min.js"></script>
+<script src="../common/editor.md-master/lib/flowchart.min.js"></script>
+<script src="../common/editor.md-master/lib/jquery.flowchart.min.js"></script>
+<script src="../common/editor.md-master/editormd.js"></script>
+<script src="../common/layui/lay/modules/layer.js"></script>
+<script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="//layui.hcwl520.com.cn/layui/layui.js?v=201811010202"></script>
+<script src="../common/common.js"></script>

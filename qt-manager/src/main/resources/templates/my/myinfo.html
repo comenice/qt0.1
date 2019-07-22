@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <style type="text/css">
+        *{margin: 0;padding: 0}
+        /*整个盒子*/
+        .introduce{
+            background-color: #fff;
+            width: 1000px;
+            margin: 30px auto;
+        }
+        /*个人介绍*/
+        .personal{
+            padding: 20px;
+            padding-bottom: 0;
+        }
+        /*所有的h4*/
+        h3{
+            color: #323232;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dddedd;
+        }
+
+        /*所有p标签*/
+        .major{
+            font-weight: bold;
+            color: #767676;
+            padding-bottom: 20px;
+        }
+        /*最后一个p标签需要描边*/
+        .last{
+            border-bottom: 1px solid #dddedd;
+            margin-bottom: 10px;
+        }
+        /*项目介绍*/
+        .project{
+            padding: 20px;
+        }
+        /*项目介绍里的h4标签样式需要改动*/
+        .project h3{
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+        /*项目介绍里的p标签样式需要改动*/
+        .project .major{
+            padding-top: 20px;
+        }
+        /*项目心得 备注*/
+        .project span{
+            line-height: 26px;
+            color: #323232;
+        }
+        /*介绍技术*/
+        .project li{
+            line-height: 26px;
+            margin-left: 30px;
+            font-size: 14px;
+        }
+        /*所有链接*/
+        .project a{
+             line-height: 32px;
+             text-decoration: none;
+             color: #4083c8;
+         }
+        .project a:hover{
+            text-decoration:underline;
+        }
+    </style>
+    <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body bgcolor="#eaeaea">
+<div class="introduce">
+    <div class="personal">
+        <h3>个人简介</h3>
+        <p class="major">我的家乡： 湖南省永州市</p>
+        <p class="major">现居住：   湖南省长沙市</p>
+        <p class="major">从事工作： java开发工程师</p>
+        <p class="major last">联系方式： QQ 571503431</p>
+    </div>
+    <div class="project">
+        <h4>该项目简介</h4>
+        <span>在之前也有过在csdn 博客园中有一定的活跃，期间总是想拥有一个自己的网站，自己来管理，后面在网上查阅了一些资料，准备开发这个项目。在这个过程中 还是比较开心的。 属于自己网站的 功能一点一点的完成。虽然在工作中遇见了许多问题，也没有很多的时间来开发本网站，经过自己努力也算是有一个雏形了。</span>
+        <p class="major">项目使用的技术</p>
+        <ul>
+            <li>本项目是纯java 开发的博客系统 。</li>
+            <li>该项目基于 spring boot来整合了一些技术框架来完成：maven ，spring-boot,mybatis-plus,redis,shiro,thymeleaf,layui,bootstrap，jquery 等等</li>
+        </ul>
+        <p class="major">该项目开发过程中使用的一部分技术文档，前端样式:</p>
+        <a href="https://pandao.github.io/editor.md/">https://pandao.github.io/editor.md/</a>
+        <br><a href="https://mp.baomidou.com/guide/#%E7%89%B9%E6%80%A7">https://mp.baomidou.com/guide/#%E7%89%B9%E6%80%A7</a>
+        <br><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login">https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login</a>
+        <br><a href="https://waylau.gitbooks.io/apache-shiro-1-2-x-reference/content/">https://waylau.gitbooks.io/apache-shiro-1-2-x-reference/content/</a>
+        <br><a href="https://www.breakyizhan.com/">https://www.breakyizhan.com/</a>
+        <br><a href="https://www.layui.com/">https://www.layui.com/</a>
+        <br><a href="https://v3.bootcss.com/">https://v3.bootcss.com/</a>
+        <br><a href="https://changyan.kuaizhan.com/">https://changyan.kuaizhan.com/</a>
+        <p>还有很多没有进行收藏 后面整理好了在补上！</p>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>个人信息</title>-->
+
+    <!--<script src="../common/js/jquery-3.2.1.js"></script>-->
+    <!--<link rel="stylesheet" href="../common/editor.md-master/css/editormd.css" />-->
+<!--</head>-->
+<!--<body style=" padding: 30px 100px;background-color: #e8e8e8">-->
+    <!--<div id="doc-content" style="margin: auto auto;width: 980px;">-->
+        <!--<h5 id="h5-u4E2Au4EBAu7B80u4ECB"><a name="个人简介" class="reference-link"></a><span class="header-link octicon octicon-link"></span>个人简介</h5><hr>-->
+        <!--<h6 id="h6&#45;&#45;"><a name="我的家乡： 湖南省永州市" class="reference-link"></a><span class="header-link octicon octicon-link"></span>我的家乡： 湖南省永州市</h6><h6 id="h6&#45;&#45;"><a name="现居住：   湖南省长沙" class="reference-link"></a><span class="header-link octicon octicon-link"></span>现居住：   湖南省长沙</h6><h6 id="h6&#45;&#45;java-"><a name="从事工作： java开发，挺喜欢这份工作的，就是对眼睛不好。" class="reference-link"></a><span class="header-link octicon octicon-link"></span>从事工作： java开发，挺喜欢这份工作的，就是对眼睛不好。</h6><h6 id="h6&#45;&#45;qq-571503431"><a name="联系法师： QQ 571503431" class="reference-link"></a><span class="header-link octicon octicon-link"></span>联系法师： QQ 571503431</h6><hr>-->
+        <!--<h5 id="h5-u8BE5u9879u76EEu7B80u4ECB"><a name="该项目简介" class="reference-link"></a><span class="header-link octicon octicon-link"></span>该项目简介</h5><p>在之前也有过在csdn 博客园中有一定的活跃，期间总是想拥有一个自己的网站，自己来管理，后面在网上查阅了一些资料，准备开发这个项目。在这个过程中 还是比较开心的。 属于自己网站的 功能一点一点的完成。虽然在工作中遇见了许多问题，也没有很多的时间来开发本网站，经过自己努力也算是有一个雏形了。</p>-->
+        <!--<h6 id="h6-u9879u76EEu4F7Fu7528u7684u6280u672F"><a name="项目使用的技术" class="reference-link"></a><span class="header-link octicon octicon-link"></span>项目使用的技术</h6><ul>-->
+        <!--<li>本项目是纯java 开发的博客系统 。</li><li>该项目基于 spring boot来整合了一些技术框架来完成： maven，spring-boot,mybatis-plus,redis,shiro,thymeleaf,layui,bootstrap，jquery 等等</li></ul>-->
+        <!--<h6 id="h6&#45;&#45;"><a name="该项目开发过程中使用的一部分技术文档，前端样式 。" class="reference-link"></a><span class="header-link octicon octicon-link"></span>该项目开发过程中使用的一部分技术文档，前端样式 。</h6><p><a href="https://pandao.github.io/editor.md/">https://pandao.github.io/editor.md/</a><br><a href="https://mp.baomidou.com/guide/#%E7%89%B9%E6%80%A7">https://mp.baomidou.com/guide/#%E7%89%B9%E6%80%A7</a><br><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login">https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login</a><br><a href="https://waylau.gitbooks.io/apache-shiro-1-2-x-reference/content/">https://waylau.gitbooks.io/apache-shiro-1-2-x-reference/content/</a><br><a href="https://www.breakyizhan.com/">https://www.breakyizhan.com/</a><br><a href="https://www.layui.com/">https://www.layui.com/</a><br><a href="https://v3.bootcss.com/">https://v3.bootcss.com/</a><br><a href="https://changyan.kuaizhan.com/">https://changyan.kuaizhan.com/</a><br>还有很多没有进行收藏 后面整理好了在补上！-->
+    <!--</div>-->
+    <!--<div class="line"></div>-->
+    <!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<script>
+    $(function () {
+        //博客详情的第三方链接
+        $(document).on( "click" , "a[href!='#']" , function () {
+            var s = $(this).prop( "href" );
+            window.open( s , "_blank" );
+            return false;
+        });
+    });
+</script>
+
+<!--<script src="../common/editor.md-master/lib/marked.min.js"></script>-->
+<!--<script src="../common/editor.md-master/lib/prettify.min.js"></script>-->
+<!--<script src="../common/editor.md-master/lib/raphael.min.js"></script>-->
+<!--<script src="../common/editor.md-master/lib/underscore.min.js"></script>-->
+<!--<script src="../common/editor.md-master/lib/sequence-diagram.min.js"></script>-->
+<!--<script src="../common/editor.md-master/lib/flowchart.min.js"></script>-->
+<!--<script src="../common/editor.md-master/lib/jquery.flowchart.min.js"></script>-->
+<!--<script src="../common/editor.md-master/editormd.js"></script>-->

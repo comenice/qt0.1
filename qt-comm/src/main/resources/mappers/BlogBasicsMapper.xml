@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxb.qt.exploit.mapper.BlogBasicsTagVoMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BasicTagMap" type="com.zxb.qt.exploit.entity.vo.BlogBasicTagVO">
+        <id column="basic_id" property="basic_id"/>
+        <result column="TITLE" property="title"></result>
+        <result column="CONTENT" property="content"></result>
+        <result column="EDITOR_CONTENT" property="editorContent"></result>
+        <result column="HEAD_CONTENT" property="headContent"></result>
+        <result column="DOTCOUNT" property="dotCount"></result>
+        <result column="BROWSECOUNT" property="browseCount"></result>
+		<result column="COMMENT_COUNT" property="CommentCount"></result>
+        <result column="TOP" property="top"></result>
+		<result column="USER_ID" property="userId"></result>
+        <collection property="tagList"
+					column="basic_id"
+					select="com.zxb.qt.exploit.mapper.BlogTagMapper.queryTagListByBlogId"
+					ofType="com.zxb.qt.exploit.entity.vo.TagVO">
+        </collection>
+    </resultMap>
+
+
+	<!--  博客详情 -->
+	<resultMap id="BasicTagDetailMap" extends="BasicTagMap" type="com.zxb.qt.exploit.entity.vo.BlogBasicDetailVO">
+		<!-- 上一篇 -->
+		<association property="previousBlog" column="basic_id" select="com.zxb.qt.exploit.mapper.BlogBasicsTagVoMapper.queryPreviousBlog"></association>
+		<!-- 下一篇 -->
+		<association property="nextBlog" column="basic_id" select="com.zxb.qt.exploit.mapper.BlogBasicsTagVoMapper.queryNextBlog"></association>
+	</resultMap>
+
+	<sql id="selectBasicTag">
+		   b.ID as 'basic_id',
+	       b.TITLE,
+	       b.CONTENT,
+	       b.EDITOR_CONTENT,
+	       b.HEAD_CONTENT,
+	       b.DOT_COUNT,
+	       b.BROWSE_COUNT,
+	       b.COMMENT_COUNT,
+	       b.TOP,
+	       b.CREATE_TIME,
+	       b.UPDATE_TIME,
+	       b.USER_ID
+	</sql>
+
+	<select id="queryBlogBasicDetailById" resultMap="BasicTagDetailMap">
+		select
+			<include refid="selectBasicTag"></include>
+		from blog_basics b
+			where id = #{id}
+	</select>
+
+
+	<select id="queryPreviousBlog" resultMap="BasicTagMap">
+		select
+			<include refid="selectBasicTag"></include>
+		from blog_basics b
+			where id &gt;  #{id}
+			order by id asc limit 1
+	</select>
+
+	<select id="queryNextBlog" resultMap="BasicTagMap">
+		select
+			<include refid="selectBasicTag"></include>
+		 from blog_basics b
+		 	 where id &lt;  #{id}
+			 order by id desc limit 1
+	</select>
+
+	
+	<!-- 博客分页查询 -->
+    <select id="queryBasicTag" resultMap="BasicTagMap">
+        select
+			<include refid="selectBasicTag"></include>
+	      from blog_basics b
+	        where b.top = 0 ORDER BY b.id desc
+    </select>
+
+	
+	<!-- 查询置顶 -->
+    <select id="queryBasicTagTopOne" resultMap="BasicTagMap">
+        select
+			<include refid="selectBasicTag"></include>
+	      from blog_basics b
+	         WHERE b.id = (select id from blog_basics where top = (select max(top) from blog_basics))
+    </select>
+
+	
+	<!-- 添加博客标签 -->
+	<insert id="insertBlogTag">
+		insert into blog_basic_tag ( basic_id , tag_id )	values
+			<foreach collection="tags" item="tag" separator=","  >
+				(#{blogId},#{tag})
+			</foreach>
+	</insert>
+
+
+	<!--<select id="queryBlogProp" resultType="com.zxb.qt.exploit.entity.vo.BlogBasicPropVo">-->
+		<!--select-->
+		 	  <!--Id as 'basic_id',-->
+		 	  <!--DOT_COUNT,-->
+		 	  <!--BROWSE_COUNT-->
+			<!--FROM blog_basics-->
+			  <!--where ID = 1-->
+	<!--</select>-->
+    
+
+</mapper>

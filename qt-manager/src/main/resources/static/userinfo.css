@@ -1,0 +1,182 @@
+*{
+    margin: 0; padding: 0;
+}
+a{
+    color: #8a8a8a;
+    text-decoration: none;
+}
+#userinfo{
+    margin-top: 10px;
+    width: 800px;
+    height: 500px;
+    padding: 20px ;
+    padding-left: 0px;
+    margin-left: 30px;
+    overflow:hidden;
+    overflow-y:scroll;
+}
+#userinfo .fixed{
+    position: fixed;
+    top: 0;
+    background-color: #fff;
+    z-index: 20;
+    padding-top: 20px;
+    width: 780px;
+}
+#userinfo .top{
+    overflow: hidden;
+}
+#userinfo .top .portrait{
+
+    float: left;
+    border-radius: 4px;
+}
+#userinfo .top .portrait img{
+    width: 70px;
+    height: 70px;
+}
+#userinfo .top .name{
+    margin-left: 10px;
+    margin-top: 5px;
+    font-size: 22px;
+    display: inline-block;
+    vertical-align: middle;
+}
+#userinfo .top img{
+    margin-top: 5px;
+    width: 22px;
+    vertical-align: middle;
+}
+#userinfo .top .modify{
+    display: none;
+    margin-top: 5px;
+}
+#userinfo .top .modify input{
+    line-height: 30px;
+    border: 1px solid #ddd;
+    padding: 0 5px;
+    width: 150px;
+    font-size: 22px;
+    margin-left: 4px;
+    border-radius: 5px;
+    float: left;
+    outline: none;
+}
+#userinfo .top .modify button{
+    line-height: 30px;
+    color: #fff;
+    background-color: #d9534f;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+    width: 60px;
+    margin-left: 5px;
+}
+#userinfo .top .sex{
+    margin-left: 80px;
+    margin-top: 10px;
+    display: block;
+}
+#userinfo .nav .box{
+    position: relative;
+    border-bottom: 1px solid #cbc9c9;
+    padding: 0 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+#userinfo .nav .content{
+    margin-top: 130px;
+
+}
+#userinfo .nav .content .none{
+    display: none;
+}
+#userinfo .nav .box .portrait{
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    float: left;
+    margin-top: 5px;
+}
+#userinfo .nav .box .portrait img{
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+}
+#userinfo .nav .box .title{
+    margin-left: 10px;
+    line-height: 36px;
+    margin-top: 5px;
+    width: 200px;
+    color: #666;
+    font-size: 18px;
+    display: inline-block;
+}
+#userinfo .nav .box .title:hover{
+    cursor: pointer;
+    color: palevioletred;
+}
+#userinfo .nav .box .dot{
+    float: right;
+    margin-top: 5px;
+    line-height: 36px;
+    color: #8a8a8a;
+}
+#userinfo .nav .box .dot img{
+    width: 20px;
+    vertical-align: text-bottom;
+}
+#userinfo .nav .box .said{
+    font-size: 20px;
+    width: 500px;
+    padding: 10px 0;
+}
+#userinfo .nav .box .btn{
+    color: #8a8a8a;
+}
+#userinfo .nav .box .del{
+    float: right;
+}
+#userinfo .nav .box .del a:hover{
+    color: #00aaaa;
+}
+.nav .title{
+    width: 100%;
+    display: flex;
+}
+.nav .title li{
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    flex:1;
+    color: gray;
+    margin: 0 20px;
+    list-style-type: none;
+}
+.nav .title li:hover{
+    cursor: pointer;
+}
+.nav .title li.active{
+    color: #d9534f;
+    font-weight: 600;
+    border-bottom:2px solid #d9534f;
+}
+
+
+
+
+.innerbox::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+}
+.innerbox::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+}
+.innerbox::-webkit-scrollbar-track { /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: white;
+    background: rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>用户信息</title>
+	<style type="text/css">
+
+		*{
+			margin: 0; padding: 0;
+		}
+		a{
+			color: #8a8a8a;
+			text-decoration: none;
+		}
+		#userinfo{
+			/*margin-top: 10px;*/
+			margin: auto auto;
+			width: 500px;
+			height: 700px;
+			padding: 20px ;
+			padding-left: 0px;
+			margin-left: 30px;
+			overflow:hidden;
+			overflow-y:scroll;
+		}
+		#userinfo .fixed{
+			position: fixed;
+			top: 0;
+			background-color: #fff;
+			z-index: 20;
+			padding-top: 20px;
+			width: 500px;
+		}
+		#userinfo .top{
+			overflow: hidden;
+		}
+		#userinfo .top .portrait{
+			float: left;
+			border-radius: 4px;
+		}
+		#userinfo .top .portrait img{
+			width: 70px;
+			height: 70px;
+		}
+		#userinfo .top .name{
+			margin-left: 10px;
+			margin-top: 5px;
+			font-size: 22px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		#userinfo .top img{
+			margin-top: 5px;
+			width: 22px;
+			vertical-align: middle;
+		}
+		#userinfo .top .modify{
+			display: none;
+			margin-top: 5px;
+		}
+		#userinfo .top .modify input{
+			line-height: 30px;
+			border: 1px solid #ddd;
+			padding: 0 5px;
+			width: 150px;
+			font-size: 22px;
+			margin-left: 4px;
+			border-radius: 5px;
+			float: left;
+			outline: none;
+		}
+		#userinfo .top .modify button{
+			line-height: 30px;
+			color: #fff;
+			background-color: #d9534f;
+			border: 0;
+			border-radius: 5px;
+			outline: none;
+			width: 60px;
+			margin-left: 5px;
+		}
+		#userinfo .top .sex{
+			margin-left: 80px;
+			margin-top: 10px;
+			display: block;
+		}
+		#userinfo .nav .box{
+			position: relative;
+			border-bottom: 1px solid #cbc9c9;
+			padding-left: 38px;
+			margin-bottom: 10px;
+		}
+		#userinfo .nav .box div{
+			margin-left: 20px;
+		}
+		#userinfo .nav .content{
+			margin-top: 130px;
+
+		}
+		#userinfo .nav .content .none{
+			display: none;
+		}
+		#userinfo .nav .box .portrait{
+			width: 46px;
+			height: 46px;
+		}
+		#userinfo .nav .box .portrait img{
+			width: 46px;
+			height: 46px;
+			border-radius: 5px;
+		}
+		#userinfo .nav .box .title{
+			margin-left: 10px;
+			line-height: 36px;
+			margin-top: 5px;
+			width: 200px;
+			color: #666;
+			font-size: 18px;
+			display: inline-block;
+		}
+		#userinfo .nav .box .title:hover{
+			color: rgba(215,75,75,1);
+			cursor: pointer;
+		}
+		#userinfo .nav .box .dot{
+			float: right;
+			margin-top: 5px;
+			line-height: 36px;
+			color: #8a8a8a;
+		}
+		#userinfo .nav .box .dot img{
+			width: 20px;
+			vertical-align: text-bottom;
+		}
+		#userinfo .nav .box .said{
+			font-size: 20px;
+			width: 500px;
+			padding: 10px 0;
+		}
+		#userinfo .nav .box .btn{
+			color: #8a8a8a;
+		}
+		#userinfo .nav .box .del{
+			float: right;
+		}
+		#userinfo .nav .box .del a:hover{
+			color: #00aaaa;
+		}
+		.nav .title{
+			width: 100%;
+			display: flex;
+		}
+		.nav .title li{
+			line-height: 40px;
+			text-align: center;
+			font-size: 18px;
+			flex:1;
+			color: gray;
+			margin: 0 20px;
+			list-style-type: none;
+		}
+		.nav .title li:hover{
+			cursor: pointer;
+		}
+
+		.innerbox::-webkit-scrollbar {/*滚动条整体样式*/
+			width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+			height: 4px;
+		}
+		.innerbox::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+			border-radius: 5px;
+			-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+			background: rgba(0,0,0,0.2);
+		}
+		.innerbox::-webkit-scrollbar-track { /*滚动条里面轨道*/
+			-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+			border-radius: 0;
+			background: white;
+			background: rgba(0, 0, 0, 0.1);
+		}
+
+
+	</style>
+
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+</head>
+<body class="" style="border-radius: 15px">
+	<div id="userinfo" class="innerbox">
+		<div class="fixed">
+
+			<div class="nav fx">
+				<ul class="title" id="tip">
+					<li><span class="discuss"></span>用户头像</li>
+					<li><span class="collect"></span>排名</li>
+					<li><span class="reply"></span>闯关时间</li>
+				</ul>
+			</div>
+		</div>
+		<div class="nav">
+			<div class="content">
+				<div id="comments">
+
+				</div>
+				<div class="none">期待中！</div>
+				<div class="none">期待中！</div>
+			</div>
+		</div>
+
+
+	</div>
+
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script src="../common/layui/lay/modules/layer.js"></script>
+<script src="//layui.hcwl520.com.cn/layui/layui.js?v=201811010202"></script>
+
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="../common/common.js"></script>
+
+	<script type="text/javascript">
+		// layer.msg('玩命提示中');
+		// var obj=document.querySelector("#userinfo");
+		$(function () {
+			layui.use('flow', function(){
+				var flow = layui.flow;
+				flow.load({
+					 mb:50
+					,scrollElem:'#userinfo'
+					,elem: '#comments' //指定列表容器
+					,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+						var lis = [];
+						//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+						var tag = "";
+						//page--;
+						$.ajax({
+                           type: "post",
+                           url : '/games/getRank?limit='+page ,
+                           success : function ( res ) {
+                               res = JSON.parse( JSON.stringify( res ) ) ;
+                               alert( "res :" + res );
+                               for ( i = 0 ; i<res.data.length ; i++ ){
+                                   var rd =  res.data[i] ;
+                                   alert( "rd : " +  rd );
+								   var html = "\t<div class=\"box row\" >\n" +
+										   "<div class=\"col-md-4 portrait\">\n" +
+										   "\t<img src=\"http://139.224.129.134/file/img/blog/wx.png\">\n" +
+										   " </div>\n" +
+										   "<div class=\"col-md-4\" style=\"text-align: right\" >\n" +
+										   "\t<span> " + rd.rnak + " </span>\n" +
+										   "</div>\n" +
+										   "<div class=\"col-md-4\" style=\"text-align: right\" >\n" +
+										   "\t<span>\n" +
+										   "\t\ " + rd.score + "  \n" +
+										   "\t</span>\n" +
+										   "</div>\n" +
+										   "</div>" ;
+								   lis.push( html )
+                               }
+                               //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                               //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                               next(lis.join(''), page < res.pages);
+                           }, dataType: "json"
+                        });
+					}
+				});
+			});
+
+			$(document).on("click","#blogTitle",function () {
+				var id = $(this).attr( "data-blogId" );
+				openPostWindow( "/home.html" , id );
+			})
+		})
+
+	</script>
+
+</html>

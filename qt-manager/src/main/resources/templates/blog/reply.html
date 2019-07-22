@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>回复</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		.reply{
+			padding: 30px 10px;
+			background-color: #fff;
+			border-radius: 10px;
+			width: 600px;
+			text-align: center;
+		}
+		.top{
+			position: absolute;
+			top: -40px;
+			left: 30px;
+			box-shadow: 0 0 10px #000;
+			background-color: #000;
+			color: #fff;
+			width: 60px;
+			border-radius: 10px;
+			height: 70px;
+			padding: 10px 15px;
+			line-height: 35px;
+			text-align: left;
+		}
+		.top p:nth-child(2){
+			text-align: center;
+		}
+		h3{
+			text-align: center;
+			line-height: 100px;
+			margin-top: 20px;
+		}
+		.title{
+			text-align: left;
+			color: #757575;
+			font-size: 14px;
+			margin-bottom: 5px;
+		}
+		textarea{
+			width: 560px;
+			height: 130px;
+			line-height: 24px;
+			margin: auto;
+			padding: 5px 10px;
+			outline: none;
+			display: block;
+			border-radius: 10px;
+			resize: none;
+		}
+		button{
+			width: 300px;
+			height: 40px;
+			line-height: 40px;
+			background-color: #000;
+			color: #fff;
+			border:0;
+			outline: none;
+			border-radius: 20px;
+			margin-top: 30px;
+		}
+	</style>
+</head>
+<body>
+	<form id="reply_info">
+		<div class="reply">
+			<h3>文明发言，做最好的己己。</h3>
+			<p class="title">请输入内容</p>
+			<textarea id="info" placeholder="请输入您的评论"></textarea>
+			<button id="reply" type="button">回复</button>
+		</div>
+	</form>
+	<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+	<script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="../common/layui/lay/modules/layer.js"></script>
+	<script src="../common/common.js"></script>
+
+	<script>
+		$(function () {
+
+			//回复
+			$("#reply").click(function () {
+				var comment = $("#info").val();
+				if ( !comment ){
+					layer.msg("亲😙 你是不是少了点什么？ 点我干嘛！！");
+					return false ;
+				}
+				var passivityUserId = $("#layui-layer-iframe1",window.parent.document).attr("comm-passivityUserId");
+				var parentId = $("#layui-layer-iframe1",window.parent.document).attr("comm-parentId");
+				var time = $.myTime.UnixToDate( $.myTime.CurTime() ) ;
+
+				var json = {
+					"parentId":  parentId,
+					"passivityUserId": passivityUserId,
+					"createTime" : time ,
+					"content": comment
+				};
+				//alert( "json : " + json );
+				$.ajax({
+					type : "post" ,
+					data: json ,
+					url : "/comment/reply",
+					success : function ( res ) {
+						if ( res.code > 0 ){
+							$.cookie("isReply" , 1 );
+							layer.msg( res.msg );
+						}
+						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+						parent.layer.close(index); //再执行关闭
+					}
+				});
+
+			});
+		});
+	</script>
+
+	<!--<script type="text/javascript">-->
+		<!--layer.open({-->
+				<!--title:false,-->
+				<!--type:1,-->
+				<!--content:$(".reply"),-->
+      			<!--area: ['620px', '416px'],-->
+      			<!--resize:false,-->
+      			<!--fixed: false,-->
+      			<!--closeBtn: 0-->
+      		<!--})-->
+		<!--$(".layui-layer").css({-->
+			<!--"border-radius":"10px",-->
+			<!--"position": "relative",-->
+			<!--"box-shadow":"0 10px 10px #8e8e8e"-->
+			<!--,});-->
+		<!--$(".layui-layer").append(`<div class="top">-->
+									<!--<p>评论</p>-->
+									<!--<p>回复</p>-->
+								<!--</div>`)-->
+	<!--</script>-->
+</body>
+</html>

@@ -16,4 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IUserService extends IService<User> {
 
+
+    Boolean userIsExist( String userName );
+
+
 }

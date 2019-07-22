@@ -12,7 +12,7 @@
 
     <resultMap id="UserRoleMap" type="com.zxb.qt.exploit.entity.vo.UserRoleVO">
         <id column="ID" property="user_id"></id>
-        <result column="user_name" property="userName"></result>
+        <result column="USER_NAME" property="userName"></result>
         <collection property="sysRoles" ofType="com.zxb.qt.exploit.entity.SysRole">
             <id column="ID" property="id"></id>
             <result column="ROLE" property="role"></result>
@@ -24,8 +24,11 @@
     <select id="queryUserRole" resultMap="UserRoleMap">
         SELECT
         u.ID as user_id ,
-        sr.ID as id , sr.DESCS , sr.AVAILABLE , sr.ROLE
-         USER_NAME FROM user u
+        sr.ID as id , sr.DESCS ,
+        sr.AVAILABLE ,
+        sr.ROLE ,
+        u.USER_NAME
+         FROM user u
          LEFT JOIN sys_role_user sru on u.id = sru.user_id
          LEFT JOIN sys_role sr on sru.role_id = sr.ID
          where u.id = #{uid}

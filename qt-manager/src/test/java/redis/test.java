@@ -72,11 +72,13 @@ public class test {
 //    }
 
 
+
+    @Autowired
+    private RedisUtils redisUtils;
+
     @Test
-    public void a(){
-
-
-
+    public void zset(){
+        redisUtils.opsZSet().add( "zset" , "user1" , 1.0 );
     }
 
 

@@ -7,10 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 //@ServletComponentScan( value = "com.zxb.qt.exploit.common" )
-@MapperScan(  "com.zxb.qt"  )
+@MapperScan(  "com.zxb.qt.exploit"  )
 public class QtApplication {
 
     public static void main(String[] args) {

@@ -1,1 +1,603 @@
-<!DOCTYPE html><html lang="en" class="no-js"	  xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" contents="IE=edge"> <meta name="viewport" contents="width=device-width, initial-scale=1"> <title>Off-Canvas Menu Effects - Side Slide</title>	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->	<link rel="stylesheet" type="text/css" href="./common/meun/css/normalize.css" />	<link rel="stylesheet" type="text/css" href="./common/layui/css/layui.css">	<link rel="stylesheet" type="text/css" href="./common/meun/fonts/font-awesome-4.2.0/css/font-awesome.min.css" />	<link rel="stylesheet" type="text/css" href="./common/meun/css/menu_sideslide.css" />	<link rel="stylesheet" type="text/css" href="./common/layui/css/notice.css">	<!-- 搜索 按钮 -->	<link rel="stylesheet" type="text/css" href="./common/search/font-awesome.min.css">	<link rel="stylesheet" type="text/css" href="./common/search/normalize.css">	<!--<link rel="stylesheet" type="text/css" href="./common/search/style.css">-->	<!--[if IE]>	<script src="./common/meun/js/html5.js"></script>	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>	<![endif]--></head>	<style>		header{			padding:50px 20px 40px;			height: 150px;			background-color: #4d4d4d;		}		.menu-button{			position: absolute;			top: 10px;		}		/*滚动条样式*/		.innerbox::-webkit-scrollbar {/*滚动条整体样式*/			width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/			height: 4px;		}		.innerbox::-webkit-scrollbar-thumb {/*滚动条里面小方块*/			border-radius: 5px;			-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);			background: rgba(0,0,0,0.2);		}		.innerbox::-webkit-scrollbar-track { /*滚动条里面轨道*/			-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);			border-radius: 0;			background: white;			//background: rgba(0, 0, 0, 0.1);		}		.header{			margin-left: 140px;		}		.item{			text-transform: uppercase;			font-size: 16px;			font-weight: 600;			font-family: "Montserrat",sans-serif;		}		.item li{			display: inline-block;			margin-left: 42px;			cursor: pointer;		}		.item li:hover{			color: #707070;			opacity: 1;			transition: all 0.15s linear 0s;			text-decoration: none;		}		.check{			color: white;			font-size: 18px;			opacity: 0.92;		}		.nocheck{			color: #959BA6;		}		/*整个内容盒子设置了有效尺寸，限制内容在范围1000px内显示*/		.contentsbox{			margin: auto;		}		/*每一小块的div，设置了白背景 灰左右边框*/		.contentsbox .contents{			background-color: #fff;			border-right: 1px solid #d1d1d1;			border-left: 1px solid #d1d1d1;			margin: 30px 0;		}		/*这是文章的标题 设置灰色左边框 内边距*/		.contentsbox .contents .title{			color: #999999;			border-left: 5px solid #4d4d4d;			padding: 30px 100px 15px 100px;		}		/*文章标题的名字 设置了粗细 颜色 把块元素变成了行内元素*/		.contentsbox .contents .title .name{			margin: 0;			color: #696969;			font-weight: 400;			display: inline-block;		}		/*这是日期 向右浮动 设置和名字一样的行高可以垂直对齐*/		.contentsbox .contents .title .date{			float: right;			line-height: 43px;		}		/*这是包裹文章内容的div*/		.contentsbox .contents .article{			padding: 0 100px;		}		/*这是文章内容 设置了边距*/		.contentsbox .contents .article p{			margin: 10px 0;			line-height: 26px;		}		/*这是一个超链接 查看全文*/		.contentsbox .contents .article a{			text-decoration: none;		}		/*这是灰色的分界线*/		.contentsbox .contents .article .line{			height: 30px;			border-bottom: 1px solid #dddddd;		}		/*这是底部的div*/		.contentsbox .contents .foot{			padding: 20px 100px;			position: relative;		}		/*这是读书的那两个字 定位在棕色标签上了*/		.contentsbox .contents .foot .read{			position: absolute;			left: 146px;			line-height: 42px;			font-size: 12px;			color: #fff;		}		/*这是展开全文*/		.contentsbox .contents .foot button{			display: inline-block;			opacity: 0.97;			color: #fff;			background-color: #4d4d4d;			position: absolute;			right: 100px;			top: 16px;		}		.contentsbox .contents .foot button:hover{			opacity: 1;		}		body{			background-color: #eaeaea;		}		.		.menu{			margin-left: -100px;		}		.user{			background-color: #eaeaea;			margin-bottom: 25px;			position:absolute;width:315px;			top:100px;			left:-20px;height:700px;		}		.user .user_img{			position: relative;			top: -53px;			left: 12px;			margin: auto auto;			border-radius: 53px;			background-image: url("http://139.224.129.134/file/img/blog/wx.png");			background-position: -0px -8px;			background-repeat: repeat-y;			height: 106px;			width: 106px;		}		.user .user_img img{			width: 100%;		}		div.search {			position: relative;			bottom: 8px;}		form {			position: relative;			width: 300px;			margin: 0 auto;		}		.d7 {background: #7BA7AB;}		.d7:after {content:""; clear:both; display:table}		.d7 form {			width: auto;			float: right;			margin-right: 30px;		}		.d7 input {			width: 230px;			height: 42px;			padding-left: 15px;			border-radius: 42px;			border: 2px solid #324b4e;			background: #F9F0DA;			outline: none;			position: relative;			transition: .3s linear;		}		.d7 input:focus {			width: 280px;		}		.d7 button {			width: 42px;			height: 42px;			background: none;			border: none;			position: absolute;			top: -2px;			right: 0;		}		.d7 button:before{			content: "\f002";			font-family: FontAwesome;			color: #324b4e;		}	</style>	<link rel="stylesheet" href="./common/css/load.css">	<script src="./common/editor.md-master/examples/js/jquery.min.js"></script>	<script type="text/javascript">		// 等待所有加载		$(window).load(function(){			$('body').addClass('loaded');			$('#loader-wrapper .load_title').remove();		});	</script><body>    <div id="loader-wrapper">        <div id="loader"></div>        <div class="loader-section section-left"></div>        <div class="loader-section section-right"></div>        <div class="load_title">正在加载LoveFeel站点<br><span>V1.0</span></div>    </div>	<header class="container-fluid">		<div class="menu-wrap innerbox" style="margin-left: -10px;overflow: auto;position: fixed; left: 0px;top:0px;background-color: #4d4d4d;">			<nav class="menu" >				<div class="user">					<div class="user_img">`						<img src="">					</div>				</div>				<!--<div class="icon-list">-->					<!--<a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>-->					<!--<a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>-->				<!--</div>-->			</nav>			<button class="close-button" id="close-button">Close Menu</button>		</div>		<button class="menu-button" id="open-button"></button>		<div class="header row">			<ul id="home_nav" class="nav item  col-md-8" >				<th:block th:each="right :${sysRights}">					<a th:href="${right.url}" th:attr="data-value = ${right.name},data-href = ${right.url}" >						<li  th:class="${right.descs=='主页'}? 'check' : 'nocheck'" th:text="${right.descs}">主页</li>						</li>					</a>					<!--<li th:if="${right.name != 'home'}"  th:text="${right.descs}">主页</li>-->				</th:block>			</ul>			<div style="background: #4d4d4d;height: 70px;padding-top: -100px" class="search d7  col-md-4">				<form id="serarch_form">					<input type="text" name="serarchKeyWord" placeholder="搜索标题和内容..">					<button type="button"></button>				</form>			</div>		</div>	</header>	<div>		<iframe width="100%" src="" id="myiframe" scrolling="no"  frameborder="0"></iframe>	</div>	<script src="./common/meun/js/classie.js"></script>	<script src="./common/meun/js/main.js"></script>    <script src="./common/layui/notice.js"></script>	<script src="./common/layui/layui.js"></script>	<script src="./common/common.js"></script>	</body>	<script type="text/javascript" th:inline="javascript">		$(function () {			//索引搜索			$("#serarch_form button").click(function () {				var keyWord = $( "input[name=serarchKeyWord]" ).val();				$.ajax({					url : "/blog/serarchIndex",					type : "get",					data : {"serarchKeyWord" : keyWord},					success : function ( res ) {					    console.log( res );						var blog = $("#myiframe").contents().find("#blog");						if ( res.data == "" ){							// 没有找到搜索条件值						}else {							blog.html( "" );							layui.each(res.data, function(index, itemData){								var blogMsg = appendBlog( itemData );								blog.append(  blogMsg );							});						}					}				});			});			//信息推送            layui.config({                base: './common/layui/'            });            layui.use(['notice'], function () {                var notice = layui.notice; // 允许别名 toastr                // 初始化配置，同一样式只需要配置一次，非必须初始化，有默认配置                notice.options = {                    closeButton:true,//显示关闭按钮                    debug:false,//启用debug                    positionClass:"toast-bottom-right",//弹出的位置,                    showDuration:"300",//显示的时间                    hideDuration:"1000",//消失的时间                    timeOut:"20000",//停留的时间                    extendedTimeOut:"1000",//控制时间                    showEasing:"swing",//显示时的动画缓冲方式                    hideEasing:"linear",//消失时的动画缓冲方式                    iconClass: 'toast-info', // 自定义图标，有内置，如不需要则传空 支持layui内置图标/自定义iconfont类名                    onclick: null, // 点击关闭回调                };                notice.success("我刚刚发布了文章，点击我查看 ！");                // 手动移除notice 或者使用 removeToast                notice.hideToast()            });			var html = "/blog/show" ;			var url = window.location.search;			var page = getUrlParam( "page" );			if ( page ){				html = page;			}			$("#myiframe").prop( "src" , html );		});		function getUrlParam(name) {			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象			var r = window.location.search.substr(1).match(reg);  //匹配目标参数			if (r != null) return unescape(r[2]); return null; //返回参数值		}		// iframe 滚动条		function reinitIframe(){			var iframe = document.getElementById("myiframe");				var bHeight = iframe.contentWindow.document.body.scrollHeight;				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;				var height = Math.max(bHeight, dHeight);				iframe.height = bHeight+ 16;		}		window.setInterval("reinitIframe()", 200);	</script></html>
+<!DOCTYPE html>
+
+<html lang="en" class="no-js"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" contents="IE=edge">
+	<meta name="viewport" contents="width=device-width, initial-scale=1">
+	<title>晴天 9020</title>
+	<!--<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">-->
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="//layui.hcwl520.com.cn/layui/css/layui.css?v=201811010202">
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<!--<link rel="stylesheet" type="text/css" href="./common/layui/css/layui.css">-->
+	<link rel="stylesheet" type="text/css" href="./common/meun/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="./common/meun/css/menu_sideslide.css" />
+	<link rel="stylesheet" type="text/css" href="./common/layui/css/notice.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css">
+	<!--<link rel="stylesheet" type="text/css" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">-->
+</head>
+
+<style>
+
+	#nprogress .bar{
+		background:#5cb85c;
+		height: 3px;
+	}
+
+	header{
+		padding:50px 20px 40px;
+		height: 150px;
+		background-color: #4d4d4d;
+	}
+	.menu-button{
+		position: absolute;
+		top: 10px;
+	}
+
+	/*滚动条样式*/
+	.innerbox::-webkit-scrollbar {/*滚动条整体样式*/
+		width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+		height: 4px;
+	}
+	.innerbox::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+		border-radius: 5px;
+		-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+		background: rgba(0,0,0,0.2);
+	}
+	.innerbox::-webkit-scrollbar-track { /*滚动条里面轨道*/
+		-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+		border-radius: 0;
+		background: white;
+	//background: rgba(0, 0, 0, 0.1);
+	}
+
+
+	.header{
+		margin-left: 140px;
+	}
+	.item{
+		text-transform: uppercase;
+		font-size: 16px;
+		font-weight: 600;
+		font-family: "Montserrat",sans-serif;
+	}
+	.item li{
+		display: inline-block;
+		margin-left: 42px;
+	}
+	.item li:hover{
+		color: #707070;
+		cursor: pointer;
+		opacity: 1;
+		transition: all 0.15s linear 0s;
+		text-decoration: none;
+	}
+	.item a li{
+		color: #959BA6;
+	}
+	.item a li.check{
+		color: white;
+		font-size: 18px;
+		opacity: 0.92;
+	}
+
+
+
+
+
+
+
+
+
+	/*整个内容盒子设置了有效尺寸，限制内容在范围1000px内显示*/
+	.contentsbox{
+		margin: auto;
+	}
+	/*每一小块的div，设置了白背景 灰左右边框*/
+	.contentsbox .contents{
+		background-color: #fff;
+		border-right: 1px solid #d1d1d1;
+		border-left: 1px solid #d1d1d1;
+		margin: 30px 0;
+	}
+	/*这是文章的标题 设置灰色左边框 内边距*/
+	.contentsbox .contents .title{
+		color: #999999;
+		border-left: 5px solid #4d4d4d;
+		padding: 30px 100px 15px 100px;
+	}
+	/*文章标题的名字 设置了粗细 颜色 把块元素变成了行内元素*/
+	.contentsbox .contents .title .name{
+		margin: 0;
+		color: #696969;
+		font-weight: 400;
+		display: inline-block;
+	}
+	/*这是日期 向右浮动 设置和名字一样的行高可以垂直对齐*/
+	.contentsbox .contents .title .date{
+		float: right;
+		line-height: 43px;
+	}
+	/*这是包裹文章内容的div*/
+	.contentsbox .contents .article{
+		padding: 0 100px;
+	}
+	/*这是文章内容 设置了边距*/
+	.contentsbox .contents .article p{
+		margin: 10px 0;
+		line-height: 26px;
+	}
+	/*这是一个超链接 查看全文*/
+	.contentsbox .contents .article a{
+		text-decoration: none;
+	}
+	/*这是灰色的分界线*/
+	.contentsbox .contents .article .line{
+		height: 30px;
+		border-bottom: 1px solid #dddddd;
+	}
+	/*这是底部的div*/
+	.contentsbox .contents .foot{
+		padding: 20px 100px;
+		position: relative;
+	}
+	/*这是读书的那两个字 定位在棕色标签上了*/
+	.contentsbox .contents .foot .read{
+		position: absolute;
+		left: 146px;
+		line-height: 42px;
+		font-size: 12px;
+		color: #fff;
+	}
+	/*这是展开全文*/
+	.contentsbox .contents .foot button{
+		display: inline-block;
+		opacity: 0.97;
+		color: #fff;
+		background-color: #4d4d4d;
+		position: absolute;
+		right: 100px;
+		top: 16px;
+	}
+	.contentsbox .contents .foot button:hover{
+		opacity: 1;
+	}
+	body{
+		background-color: #eaeaea;
+	}
+
+	.
+
+	.menu{
+		margin-left: -100px;
+	}
+
+	.user{
+		background-color: #eaeaea;
+		margin-bottom: 25px;
+		position:absolute;width:315px;
+		top:100px;
+		left:-20px;height:700px;
+	}
+	.user .user_img{
+		position: relative;
+		top: -20px;
+		left: 12px;
+		margin: auto auto;
+		border-radius: 53px;
+		background-position: -0px -8px;
+		background-repeat: repeat-y;
+		height: 106px;
+		width: 106px;
+	}
+	.user .user_img img{
+		width: 100%;
+	}
+
+
+
+
+
+	div.search {
+		position: relative;
+		bottom: 8px;}
+	form {
+		position: relative;
+		width: 300px;
+		margin: 0 auto;
+	}
+
+	.d7 {background: #7BA7AB;}
+	.d7:after {content:""; clear:both; display:table}
+	.d7 form {
+		width: auto;
+		float: right;
+		margin-right: 30px;
+	}
+	.d7 input {
+		width: 230px;
+		height: 42px;
+		padding-left: 15px;
+		border-radius: 42px;
+		border: 2px solid #324b4e;
+		background: #F9F0DA;
+		outline: none;
+		position: relative;
+		transition: .3s linear;
+	}
+	.d7 input:focus {
+		width: 280px;
+	}
+	.d7 button {
+		width: 42px;
+		height: 42px;
+		background: none;
+		border: none;
+		position: absolute;
+		top: -2px;
+		right: 0;
+	}
+	.d7 button:before{
+		color: #324b4e;
+	}
+
+
+
+	/**
+     *  左侧注册用户信息
+     */
+	#middle{
+		margin-right: 100px;
+	}
+	#user{
+		border-radius: 5px;
+		position: fixed;
+		width: 160px;
+		top: 540px;
+		height: 400px;
+	}
+	#user button{
+		width: 80px;
+		height: 40px;
+		border: 0px;
+	}
+	#user button:hover{
+		background-color: #27AE60;
+	}
+	#user span{
+		font-size: 16px;
+		line-height: 20px;
+	}
+	#nc span{
+		font-family: "黑体";
+		font-weight: bold;
+		color: #0a001f;
+		font-size: 14px;
+	}
+	#tx{
+		padding-top: 14px;
+		padding-left: 26px;
+		width: 50px;
+		height: 50px;
+	}
+	#tx img{
+		border-radius: 5px;
+		width: 50px;
+		height: 50px;
+	}
+
+
+</style>
+
+<body>
+
+<header class="container-fluid">
+	<div class="menu-wrap innerbox" style="margin-left: -10px;overflow: auto;position: fixed; left: 0px;top:0px;background-color: #4d4d4d;">
+		<nav class="menu" >
+			<div class="user">
+				<h3>
+					<p style="padding-left: 130px;padding-top: 60px">
+						期待期待！
+					</p>
+				</h3>
+				<!--<div class="user_img">`-->
+				<!--<img src="">-->
+				<!--</div>-->
+			</div>
+			<!--<div class="icon-list">-->
+			<!--<a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-comment-o"></i><span>Comments</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-bar-chart-o"></i><span>Analytics</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-newspaper-o"></i><span>Reading List</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-star-o"></i><span>Favorites</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-bell-o"></i><span>Alerts</span></a>-->
+
+			<!--<a href="#"><i class="fa fa-fw fa-envelope-o"></i><span>Messages</span></a>-->
+			<!--</div>-->
+		</nav>
+		<button class="close-button" id="close-button">Close Menu</button>
+
+	</div>
+	<button class="menu-button" id="open-button"></button>
+
+	<div class="header row">
+		<ul id="home_nav" class="nav item  col-md-8" >
+			<th:block th:each="right :${sysRights}">
+				<a th:href="${right.url}" th:attr="data-value = ${right.name},data-href = ${right.url}" >
+					<li  th:class="${right.descs=='主页'}? 'check' : ''" th:text="${right.descs}">主页</li>
+					</li>
+				</a>
+			</th:block>
+			<!--<li th:if="${right.name != 'home'}"  th:text="${right.descs}">主页</li>-->
+		</ul>
+
+		<div style="background: #4d4d4d;height: 70px;padding-top: -100px" class="search d7  col-md-4">
+			<form id="serarch_form" onsubmit="return false;">
+				<input type="text" name="serarchKeyWord" placeholder="搜索标题和内容..">
+				<button  type="button">
+					<i class="glyphicon glyphicon-search"></i>
+				</button>
+			</form>
+		</div>
+
+
+	</div>
+
+
+</header>
+
+<div>
+	<iframe width="100%" src=""  id="myiframe" scrolling="no"  frameborder="0"></iframe>
+</div>
+<!-- 登陆用户信息 -->
+<div id="user"  style="right:-80px "  >
+	<div id="tx">
+		<th:block th:if="${T(com.zxb.qt.exploit.common.shiro.CurrentUser)?.getUser( true )} == null">
+			<img id="user_tx"
+				 th:onclick="openUserInfo([[${T(com.zxb.qt.exploit.common.shiro.CurrentUser).getUser( true )}]]);"
+				 src="http://139.224.129.134/file/img/icon/default/login.svg" class=""/>
+		</th:block>
+
+		<img id="user_tx"
+			 th:onclick="openUserInfo([[${T(com.zxb.qt.exploit.common.shiro.CurrentUser).getUser( true )}]]);"
+			 th:if="${T(com.zxb.qt.exploit.common.shiro.CurrentUser)?.getUser( true )}"
+			 th:src="${T(com.zxb.qt.exploit.common.shiro.CurrentUser).getUser( true ).url}"
+			 src="http://139.224.129.134/file/img/blog/wx.png" class=""/>
+	</div>
+	<!-- 置顶 -->
+	<div id="tx" >
+		<div id="back-to-top" style="padding-right: 8px">
+			<img src="http://139.224.129.134/file/img/icon/default/top4.svg">
+		</div>
+	</div>
+
+
+
+	<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+	<!--<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
+	<script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script src="//layui.hcwl520.com.cn/layui/layui.js?v=201811010202"></script>
+	<!-- 上方滚动条 -->
+	<!--<script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>-->
+	<script src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
+	<!-- 菜单 -->
+	<script src="./common/meun/js/classie.js"></script>
+	<!--<script src="./common/meun/js/main.js"></script>-->
+	<!--<script src="./common/layui/notice.js"></script>-->
+	<script src="./common/common.js"></script>
+	<!--<script src="./common/layui/layui.js"></script>-->
+	<!--<script src="../common/js/jquery-3.2.1.js"></script>-->
+	<!--<script src="./common/js/jquery.cookie.js"></script>-->
+	<script type="text/javascript" th:inline="javascript">
+		var layer;
+		$(function () {
+
+			NProgress.start();
+			NProgress.done();
+
+			<!-- 左上角菜单 打开关闭 -->
+			var bodyEl = document.body;
+			$("#open-button").click(function () {
+				classie.add( bodyEl, 'show-menu' );
+			});
+			$(document).on("click","#close-button",function () {
+				classie.remove( bodyEl, 'show-menu' );
+			});
+
+
+			$("#back-to-top").fadeOut(200);
+			$(window).scroll(function(){
+				if ($(window).scrollTop()>100){
+					$("#back-to-top").fadeIn(1200);
+				}
+				else
+				{
+					$("#back-to-top").fadeOut(1200);
+				}
+			});
+
+			//当点击跳转链接后，回到页面顶部位置
+			$("#back-to-top").click(function(){
+				if ($('html').scrollTop()) {
+					$('html').animate({ scrollTop: 0 }, 100);//动画效果
+					return false;
+				}
+				$('body').animate({ scrollTop: 0 }, 100);
+				return false;
+			});
+
+			parent.layui.use( "layer" , function () {
+				layer = layui.layer ;
+			});
+			//指定 iframe 页面内容
+			loadIframe();
+			//是否登陆 是否去掉登陆状态
+			rState();
+			//菜单
+			$("#home_nav a").click(function () {
+				var url  = $(this).attr( "href" );
+				if ( url == "/book" ){
+					layer.msg( "敬请期待 " );
+					return false;
+				}
+				if ( url == "/fx" || url == "/user/myinfo" ){
+					$("#myiframe").prop( "src" , url );
+					$(this).find("li").addClass("check").parent().siblings().children().removeClass("check");
+					return false;
+				}
+				if ( url == ""  || url == null){
+					location.href = window.location.href.split("?")[0];
+					return false;
+				}
+				//可能存在打开页面未关闭时 而服务器已经重启了
+				rState();
+				var res = isRole( url );
+				if ( !res ){
+					return false;
+				}
+				return true;
+			});
+
+
+
+			$(document).keyup(function(event){
+				if(event.keyCode ==13){
+					$("#serarch_form button").trigger("click");
+				}
+			});
+
+			//索引搜索
+			$("#serarch_form button").click(function () {
+				var keyWord = $( "input[name=serarchKeyWord]" ).val();
+				if ( !keyWord ){ return false };
+				// if ( keyWord == null ){
+				// 	location.reload();
+				// }
+				$.ajax({
+					url : "/blog/serarchIndex",
+					type : "get",
+					data : {"serarchKeyWord" : keyWord},
+					success : function ( res ) {
+						var blog = $("#myiframe").contents().find("#blog");
+						if ( res.data == "" ){
+							// 没有找到搜索条件值
+						}else {
+							blog.html( "" );
+							layui.each(res.data, function(index, itemData){
+								console.log( "itemDate : " + itemData );
+								var blogMsg = appendBlog( itemData );
+								blog.append(  blogMsg );
+							});
+						}
+					}
+				});
+				return false;
+			});
+
+
+
+			//左侧管理关闭 显示
+			var flags = "true";
+			$("#left_key").click(function(){
+				if ( flags=="true" ){
+					$("#user").removeClass("hidden");
+					$("#user").animate({right: '2px'}, "slow");
+					$("#left_key").animate({
+						right: '80px',}, "slow",function(){
+						$("#left_ico").removeClass("glyphicon glyphicon-chevron-left");
+						$("#left_ico").addClass("glyphicon glyphicon-chevron-right");
+						flags = "false";
+					});} else{
+					$("#user").removeClass("hidden");
+					$("#user").animate({right: '-86px'}, "2000");
+					$("#left_key").animate({
+						right: '-2px',}, "2500",function(){
+						$("#left_ico").removeClass("glyphicon glyphicon-chevron-right");
+						$("#left_ico").addClass("glyphicon glyphicon-chevron-left");
+						flags = "true";
+					});
+				}
+			}); //左侧管理关闭 显示
+
+
+
+
+
+			//信息推送
+			layui.config({
+				base: './common/layui/'
+			});
+			// layui.use(['notice'], function () {
+			//     var notice = layui.notice; // 允许别名 toastr
+			//     // 初始化配置，同一样式只需要配置一次，非必须初始化，有默认配置
+			//     notice.options = {
+			//         closeButton:true,//显示关闭按钮
+			//         debug:false,//启用debug
+			//         positionClass:"toast-bottom-right",//弹出的位置,
+			//         showDuration:"300",//显示的时间
+			//         hideDuration:"1000",//消失的时间
+			//         timeOut:"20000",//停留的时间
+			//         extendedTimeOut:"1000",//控制时间
+			//         showEasing:"swing",//显示时的动画缓冲方式
+			//         hideEasing:"linear",//消失时的动画缓冲方式
+			//         iconClass: 'toast-info', // 自定义图标，有内置，如不需要则传空 支持layui内置图标/自定义iconfont类名
+			//         onclick: null, // 点击关闭回调
+			//     };
+			//     notice.success("我刚刚发布了文章，点击我查看 ！");
+			//
+			//     // 手动移除notice 或者使用 removeToast
+			//     notice.hideToast()
+			// });
+		});
+
+
+		//初始化 home下的ifrmae
+		function loadIframe() {
+			if ( $("#myiframe").prop( "src" ) ){
+
+			}
+			var html = "/blog/show" ;
+			var url = window.location.search;
+			var page = getUrlParam( "page" );
+			if ( page ){
+				var blogId = getUrlParam( "blogId" );
+				html = page+"?blogId=" + blogId;
+			}
+			$("#myiframe").prop( "src" , html );
+		}
+
+
+		function getUrlParam(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+			if (r != null) return unescape(r[2]); return null; //返回参数值
+		}
+
+		// iframe 滚动条
+		function reinitIframe(){
+			var iframe = document.getElementById("myiframe");
+			var bHeight = iframe.contentWindow.document.body.scrollHeight;
+			var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+			var height = Math.max(bHeight, dHeight);
+			iframe.height = bHeight+ 16;
+		}
+		window.setInterval("reinitIframe()", 200);
+	</script>
+</body>
+
+</html>
+
